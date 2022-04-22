@@ -21,19 +21,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# Ignore artifacts:
+build
+coverage
 
-### react ###
-.DS_*
-*.log
-logs
-**/*.backup.*
-**/*.back.*
+ *.html.
 
-node_modules
-bower_components
+ **/.git
+**/.svn
+**/.hg
+**/node_modules
 
-*.sublime*
-
-psd
-thumb
-sketch
+**/.git
+**/.svn
+**/.hg
