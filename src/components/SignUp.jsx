@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -21,6 +22,7 @@ export default function SignUp() {
   const { createUser } = useAuth();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,6 +31,7 @@ export default function SignUp() {
       setError('');
       setIsLoading(true);
       await createUser(emailRef.current.value, passwordRef.current.value);
+      navigate('/login', { replace: true });
     } catch (e) {
       console.log(e.code + e.message);
       // TODO: Snygga till Error Alerts
@@ -67,6 +70,7 @@ export default function SignUp() {
                   id="email"
                   label="Email Address"
                   name="email"
+                  autoFocus
                   autoComplete="email"
                 />
               </Grid>
@@ -94,8 +98,8 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="center">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link component={RouterLink} to="/login" variant="body2">
+                  Already have an account? Log in
                 </Link>
               </Grid>
             </Grid>

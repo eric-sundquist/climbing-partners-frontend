@@ -1,39 +1,46 @@
+import { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
+import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
+import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}.
-    </Typography>
-  );
-}
+import { useAuth } from '../contexts/AuthContext';
 
 const theme = createTheme();
 
 export default function LogIn() {
-  const handleSubmit = (event) => {
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { loginUser } = useAuth();
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    try {
+      setError('');
+      setIsLoading(true);
+      await loginUser(emailRef.current.value, passwordRef.current.value);
+      navigate('/', { replace: true });
+    } catch (e) {
+      console.log(e.code + e.message);
+      // TODO: Snygga till Error Alerts
+      setError(`Failed to sign in: ${e.message}`);
+    }
+
+    setIsLoading(false);
   };
 
   return (
@@ -52,10 +59,12 @@ export default function LogIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Log in
           </Typography>
+          {error && <Alert severity="error">{error}</Alert>}
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              inputRef={emailRef}
               margin="normal"
               required
               fullWidth
@@ -66,6 +75,7 @@ export default function LogIn() {
               autoFocus
             />
             <TextField
+              inputRef={passwordRef}
               margin="normal"
               required
               fullWidth
@@ -79,24 +89,30 @@ export default function LogIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button
+              disable={isLoading ? 'true' : undefined}
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
               Log In
             </Button>
             <Grid container>
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link component={RouterLink} to="/" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                {/* OBS!!! MUI LINK ÄNDRA FIXA MED ROUTER */}
+                <Link component={RouterLink} to="/signup" variant="body2">
                   Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
   );
