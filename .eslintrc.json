@@ -4,13 +4,14 @@
   },
   "extends": [
       "airbnb",
-      "prettier",
-      "eslint:recommended",
-      "plugin:react/recommended",
+      "prettier"
+      ,
+      // "eslint:recommended",
+      // "plugin:react/recommended",
       "plugin:react/jsx-runtime"
   ],
   "plugins": [
-      "react",
+      // "react",
       "prettier"
   ],
   "parserOptions": {
@@ -26,6 +27,8 @@
     "no-unused-vars": "warn",
     "no-console":"off",
     "no-process-exit":"off",
-    "object-shorthand":"off"
+    "object-shorthand":"off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "react/no-unescaped-entities": "off"
   }
 }
