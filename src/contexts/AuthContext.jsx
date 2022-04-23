@@ -15,7 +15,8 @@ export function useAuth() {
 
 // eslint-disable-next-line react/prop-types
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState();
+  const [currentUser, setCurrentUser] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   function createUser(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -24,6 +25,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      setIsLoading(false);
     });
 
     return unsub;
@@ -35,5 +37,5 @@ export function AuthProvider({ children }) {
     createUser,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 }
