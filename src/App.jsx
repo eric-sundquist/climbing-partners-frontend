@@ -4,7 +4,9 @@ import Layout from './components/Layout';
 import Home from './components/Home';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
+import Account from './components/Account';
 import NoMatch from './components/NoMatch';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -12,6 +14,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
           {/* Using path="*"" means "match anything", so this route

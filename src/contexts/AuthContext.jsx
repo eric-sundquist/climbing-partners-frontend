@@ -26,8 +26,12 @@ export function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
+  function logoutUser() {
+    return signOut(auth);
+  }
+
   useEffect(() => {
-    const unsub = auth.onAuthStateChanged((user) => {
+    const unsub = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setIsLoading(false);
     });
@@ -40,6 +44,7 @@ export function AuthProvider({ children }) {
     currentUser,
     createUser,
     loginUser,
+    logoutUser,
   };
 
   return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;

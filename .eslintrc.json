@@ -29,6 +29,8 @@
     "no-process-exit":"off",
     "object-shorthand":"off",
     "jsx-a11y/anchor-is-valid": "off",
-    "react/no-unescaped-entities": "off"
+    "react/no-unescaped-entities": "off",
+    "react/jsx-no-bind": "off",
+    "react/prop-types": "off"
   }
 }
