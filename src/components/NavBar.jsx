@@ -14,7 +14,6 @@ import { useAuth } from '../contexts/AuthContext';
 
 export default function ButtonAppBar() {
   const { currentUser } = useAuth();
-  const [auth, setAuth] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   // React.useEffect(() => {
@@ -32,29 +31,38 @@ export default function ButtonAppBar() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+          {/* <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Climbing Partners
           </Typography>
           <Button color="inherit" component={RouterLink} to="/">
-            Home
+            Start
           </Button>
-          <Button color="inherit" component={RouterLink} to="/account">
-            Account
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/login">
-            Log in
-          </Button>
-          <Button color="inherit" component={RouterLink} to="/signup">
-            Sign up
-          </Button>
-          {auth && (
+          {currentUser ? (
+            <div>
+              <Button color="inherit" component={RouterLink} to="/account">
+                Account
+              </Button>
+            </div>
+          ) : (
+            <div>
+              <Button color="inherit" component={RouterLink} to="/login">
+                Log in
+              </Button>
+              <Button color="inherit" component={RouterLink} to="/signup">
+                Sign up
+              </Button>
+            </div>
+          )}
+
+          {/* {auth && (
             <div>
               <IconButton
                 size="large"
@@ -85,7 +93,7 @@ export default function ButtonAppBar() {
                 <MenuItem onClick={handleClose}>My account</MenuItem>
               </Menu>
             </div>
-          )}
+          )} */}
         </Toolbar>
       </AppBar>
     </Box>

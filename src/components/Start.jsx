@@ -1,7 +1,7 @@
 function Home() {
   return (
     <div>
-      <h2>Home</h2>
+      <h2>Start</h2>
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci tempora labore, iste quis
         maxime aspernatur atque. Beatae optio incidunt facere quasi nam quae vitae, necessitatibus

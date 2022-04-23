@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import Layout from './components/Layout';
-import Home from './components/Home';
+import Start from './components/Start';
 import SignUp from './components/SignUp';
 import LogIn from './components/LogIn';
 import Account from './components/Account';
@@ -13,7 +13,7 @@ function App() {
     <AuthProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
+          <Route index element={<Start />} />
           <Route
             path="/account"
             element={
