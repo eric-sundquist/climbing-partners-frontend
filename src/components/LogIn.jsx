@@ -26,7 +26,7 @@ function Copyright() {
 
 const theme = createTheme();
 
-export default function SignIn() {
+export default function LogIn() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -80,7 +80,7 @@ export default function SignIn() {
               label="Remember me"
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
-              Sign In
+              Log In
             </Button>
             <Grid container>
               <Grid item xs>
