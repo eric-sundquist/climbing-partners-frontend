@@ -29,15 +29,22 @@ export default function LogIn() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (!emailRef.current.value || !passwordRef.current.value) {
+      setError('Username and/or password is missing');
+      return;
+    }
+
     try {
       setError('');
       setIsLoading(true);
       await loginUser(emailRef.current.value, passwordRef.current.value);
       navigate('/', { replace: true });
     } catch (e) {
-      console.log(e.code + e.message);
-      // TODO: Snygga till Error Alerts
-      setError(`Failed to sign in: ${e.message}`);
+      if (e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found') {
+        setError('Wrong username and/or password.');
+      } else {
+        setError('Log in failed.');
+      }
     }
 
     setIsLoading(false);

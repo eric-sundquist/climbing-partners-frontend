@@ -6,7 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
-import { useNavigate, Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -22,7 +22,6 @@ export default function ResetPassword() {
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,8 +34,13 @@ export default function ResetPassword() {
       setInfo('An email reset email has been sent. Please check your inbox.');
     } catch (e) {
       console.log(e.code + e.message);
-      // TODO: Snygga till Error Alerts
-      setError(`Failed to reset password: ${e.message}`);
+      if (e.code === 'auth/user-not-found') {
+        setError('No registered user with that email.');
+      } else if (e.code === 'auth/invalid-email') {
+        setError('Not a valid email adress.');
+      } else {
+        setError('Password reset failed.');
+      }
     }
 
     setIsLoading(false);

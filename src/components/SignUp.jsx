@@ -26,16 +26,26 @@ export default function SignUp() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!emailRef.current.value || !passwordRef.current.value) {
+      setError('Username and/or password is missing');
+      return;
+    }
 
     try {
       setError('');
       setIsLoading(true);
       await createUser(emailRef.current.value, passwordRef.current.value);
-      navigate('/login', { replace: true });
+      navigate('/', { replace: true });
     } catch (e) {
-      console.log(e.code + e.message);
-      // TODO: Snygga till Error Alerts
-      setError(`Account creation failed: ${e.message}`);
+      if (e.code === 'auth/weak-password') {
+        setError('Password should be at least 6 characters.');
+      } else if (e.code === 'auth/invalid-email') {
+        setError('Not a valid email adress.');
+      } else if (e.code === 'auth/email-already-in-use') {
+        setError('Email is aldready in use.');
+      } else {
+        setError('Sign up failed.');
+      }
     }
 
     setIsLoading(false);
