@@ -6,9 +6,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
 // import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -18,11 +16,11 @@ import { useAuth } from '../contexts/AuthContext';
 
 const theme = createTheme();
 
-export default function LogIn() {
+export default function ResetPassword() {
   const emailRef = useRef();
-  const passwordRef = useRef();
-  const { loginUser } = useAuth();
+  const { resetPassword } = useAuth();
   const [error, setError] = useState('');
+  const [info, setInfo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -31,13 +29,14 @@ export default function LogIn() {
 
     try {
       setError('');
+      setInfo('');
       setIsLoading(true);
-      await loginUser(emailRef.current.value, passwordRef.current.value);
-      navigate('/', { replace: true });
+      await resetPassword(emailRef.current.value);
+      setInfo('An email reset email has been sent. Please check your inbox.');
     } catch (e) {
       console.log(e.code + e.message);
       // TODO: Snygga till Error Alerts
-      setError(`Failed to sign in: ${e.message}`);
+      setError(`Failed to reset password: ${e.message}`);
     }
 
     setIsLoading(false);
@@ -59,9 +58,11 @@ export default function LogIn() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+            Reset Password
           </Typography>
           {error && <Alert severity="error">{error}</Alert>}
+          {info && <Alert severity="info">{info}</Alert>}
+
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               inputRef={emailRef}
@@ -74,21 +75,6 @@ export default function LogIn() {
               autoComplete="email"
               autoFocus
             />
-            <TextField
-              inputRef={passwordRef}
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            {/* <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            /> */}
             <Button
               disable={isLoading ? 'true' : undefined}
               type="submit"
@@ -96,20 +82,17 @@ export default function LogIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Log In
+              Reset Password
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link component={RouterLink} to="/reset-password" variant="body2">
-                  Forgot password?
-                </Link>
-              </Grid>
-              <Grid item>
-                <Link component={RouterLink} to="/signup" variant="body2">
-                  Don't have an account? Sign Up
-                </Link>
-              </Grid>
-            </Grid>
+            <Button
+              component={RouterLink}
+              to="/login"
+              fullWidth
+              variant="outlined"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Log in
+            </Button>
           </Box>
         </Box>
       </Container>

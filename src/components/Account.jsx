@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
+import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -20,7 +21,7 @@ function Account() {
   };
 
   return (
-    <div>
+    <Container component="main" maxWidth="md">
       {error && <Alert severity="error">{error}</Alert>}
       <h2>Profile!</h2>
       {!currentUser && <h3>Not loggoed in!</h3>}
@@ -39,7 +40,7 @@ function Account() {
         ipsum eos alias illum dolor? Suscipit iste corrupti impedit quisquam! Molestiae animi eius
         dolore suscipit.
       </p>
-    </div>
+    </Container>
   );
 }
 

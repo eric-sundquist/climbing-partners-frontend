@@ -7,6 +7,7 @@ import LogIn from './components/LogIn';
 import Account from './components/Account';
 import NoMatch from './components/NoMatch';
 import ProtectedRoute from './components/ProtectedRoute';
+import ResetPassword from './components/ResetPassword';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           {/* Using path="*"" means "match anything", so this route
                 acts like a catch-all for URLs that we don't have explicit
                 routes for. */}
