@@ -34,7 +34,21 @@ export default function SignUp() {
     try {
       setError('');
       setIsLoading(true);
-      await createUser(emailRef.current.value, passwordRef.current.value);
+      const userCredentials = await createUser(emailRef.current.value, passwordRef.current.value);
+
+      const { accessToken } = userCredentials.user;
+      const url = `${process.env.REACT_APP_CP_APP_API_URL}/users`;
+
+      const res = await fetch(url, {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (!res.ok) {
+        throw new Error(`${res.statusText} - POST request failed`);
+      }
+
       navigate('/', { replace: true });
     } catch (e) {
       if (e.code === 'auth/weak-password') {
@@ -44,6 +58,7 @@ export default function SignUp() {
       } else if (e.code === 'auth/email-already-in-use') {
         setError('Email is aldready in use.');
       } else {
+        console.log(e.message);
         setError('Sign up failed.');
       }
     }
