@@ -14,13 +14,22 @@ import MenuItem from '@mui/material/MenuItem';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pagesAuth = [
+  { title: 'Dashboard', route: '/' },
+  { title: 'Undef', route: '/' },
+];
+const pagesAnon = [
+  { title: 'Start', route: '/' },
+  { title: 'Log in', route: '/login' },
+  { title: 'Sign up', route: '/signup' },
+];
 
 function ResponsiveAppBar() {
   const { currentUser, logoutUser } = useAuth();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const pages = currentUser ? pagesAuth : pagesAnon;
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -57,7 +66,7 @@ function ResponsiveAppBar() {
             component="div"
             sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
           >
-            LOGO
+            Climbing Partners
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -90,8 +99,13 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem
+                  key={page.title}
+                  onClick={handleCloseNavMenu}
+                  component={RouterLink}
+                  to={page.route}
+                >
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -107,11 +121,13 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                component={RouterLink}
+                to={page.route}
+                key={page.title}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>

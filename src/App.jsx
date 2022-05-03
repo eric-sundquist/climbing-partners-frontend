@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { useAuth } from './contexts/AuthContext';
 import Landing from './pages/Landing';
-import LandingLayout from './components/LandingLayout';
 import Dashboard from './pages/Dashboard';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
@@ -13,6 +13,22 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   const { currentUser } = useAuth();
+  const [userData, setUserData] = useState('');
+
+  if (currentUser) {
+    console.log('KÖÖÖRS');
+    useEffect(() => {
+      const fetchUser = async () => {
+        const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}`);
+        if (!res.ok) {
+          console.log(res.status);
+        }
+        const data = await res.json();
+        console.log(data);
+      };
+      fetchUser();
+    }, [currentUser]);
+  }
 
   return (
     <Routes>
@@ -39,7 +55,7 @@ function App() {
         </Route>
       ) : (
         // Not logged in
-        <Route path="/" element={<LandingLayout />}>
+        <Route path="/" element={<Layout />}>
           <Route index element={<Landing />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<LogIn />} />

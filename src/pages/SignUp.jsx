@@ -39,6 +39,7 @@ export default function SignUp() {
       const { accessToken } = userCredentials.user;
       const url = `${process.env.REACT_APP_CP_APP_API_URL}/users`;
 
+      // Create user in api db.
       const res = await fetch(url, {
         method: 'POST',
         headers: {
@@ -58,6 +59,7 @@ export default function SignUp() {
       } else if (e.code === 'auth/email-already-in-use') {
         setError('Email is aldready in use.');
       } else {
+        // eslint-disable-next-line no-console
         console.log(e.message);
         setError('Sign up failed.');
       }
