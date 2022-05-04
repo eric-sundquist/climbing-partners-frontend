@@ -10,8 +10,6 @@ function Account() {
   const { currentUser, logoutUser } = useAuth();
   const navigate = useNavigate();
 
-  console.log(currentUser);
-
   const handleLogout = async () => {
     setError('');
     try {

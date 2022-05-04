@@ -160,7 +160,12 @@ function ResponsiveAppBar() {
               <MenuItem component={RouterLink} to="/account" onClick={handleCloseUserMenu}>
                 <Typography textAlign="center">Account</Typography>
               </MenuItem>
-              <MenuItem onClick={handleLogOut}>
+              <MenuItem
+                onClick={() => {
+                  handleCloseUserMenu();
+                  handleLogOut();
+                }}
+              >
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>
             </Menu>

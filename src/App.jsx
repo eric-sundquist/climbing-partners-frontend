@@ -10,48 +10,78 @@ import NoMatch from './pages/NoMatch';
 import ResetPassword from './pages/ResetPassword';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
+import Profile from './pages/Profile';
 
 function App() {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState('');
 
-  if (currentUser) {
-    console.log('KÖÖÖRS');
-    useEffect(() => {
-      const fetchUser = async () => {
-        const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}`);
-        if (!res.ok) {
-          console.log(res.status);
-        }
-        const data = await res.json();
-        console.log(data);
+  const fetchApi = async (method, route, token) => {
+    console.log('FETCHING');
+    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
+      method: method,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      console.log(res.status);
+    }
+    const data = await res.json();
+    return data;
+  };
+
+  useEffect(() => {
+    if (currentUser) {
+      const getUserData = async () => {
+        const userDataFromApi = await fetchApi(
+          'GET',
+          `/users/${currentUser.uid}`,
+          currentUser.accessToken
+        );
+        setUserData(userDataFromApi);
       };
-      fetchUser();
-    }, [currentUser]);
-  }
+
+      getUserData();
+    }
+  }, [currentUser]);
+
+  console.log(userData);
 
   return (
     <Routes>
       {currentUser ? (
         // Logged in
         <Route path="/" element={<Layout />}>
-          <Route
-            index
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              <ProtectedRoute>
-                <Account />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="*" element={<NoMatch />} />
+          {userData && (
+            <>
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <Dashboard id={userData.id} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <Profile profileData={userData.profile} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Account />
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="*" element={<NoMatch />} />
+            </>
+          )}
         </Route>
       ) : (
         // Not logged in
