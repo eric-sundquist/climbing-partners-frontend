@@ -1,10 +1,14 @@
-import { Container } from '@mui/material';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
-function Dashboard({ id }) {
+function Dashboard({ user }) {
   return (
     <Container>
-      <h1>This is the Dashboard</h1>
-      <b>User in state is: {id}</b>
+      <Typography component="h1" variant="h3">
+        {user.profile.name
+          ? `Welcome ${user.profile.name}!`
+          : 'Welcome, please update your profile!'}
+      </Typography>
       <p>
         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio quaerat deleniti
         perferendis voluptatem ipsa alias, accusamus itaque iure? Ad maxime voluptatibus doloremque,

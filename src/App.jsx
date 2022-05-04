@@ -17,29 +17,58 @@ function App() {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState('');
 
-  const fetchApi = async (method, route, token) => {
+  /**
+   * Fetches user data from API.
+   *
+   * @param {String} route - The route to send the request to.
+   * @returns {Promise} JSON response from server.
+   */
+  const fetchUser = async (route) => {
     console.log('FETCHING');
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
-      method: method,
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bearer ${currentUser.accessToken}`,
       },
     });
     if (!res.ok) {
+      // Handle errors... Maybe alert flash
       console.log(res.status);
+      console.log(res.statusText);
     }
+    return res.json();
+  };
+
+  /**
+   * Updates user on server.
+   *
+   * @param {String} route - The route to send the request to.
+   * @param {Object} updatedUser - updated user.
+   * @returns {Promise} JSON response from server.
+   */
+  const fetchEditUser = async (route, updatedUser) => {
+    console.log('FETCHING EDIT USER');
+    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
+      method: 'PUT',
+      headers: {
+        authorization: `Bearer ${currentUser.accessToken}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser),
+    });
+    if (!res.ok) {
+      // Handle errors... Maybe alert flash
+      console.log(res.status);
+      console.log(res.statusText);
+    }
+
     const data = await res.json();
-    return data;
+    setUserData(data);
   };
 
   useEffect(() => {
     if (currentUser) {
       const getUserData = async () => {
-        const userDataFromApi = await fetchApi(
-          'GET',
-          `/users/${currentUser.uid}`,
-          currentUser.accessToken
-        );
+        const userDataFromApi = await fetchUser(`/users/${currentUser.uid}`);
         setUserData(userDataFromApi);
       };
 
@@ -47,7 +76,7 @@ function App() {
     }
   }, [currentUser]);
 
-  console.log(userData);
+  console.log('Re-rendering APP.js');
 
   if (currentUser) {
     // Loading screen while waiting for user data.
@@ -60,7 +89,7 @@ function App() {
             index
             element={
               <ProtectedRoute>
-                <Dashboard id={userData.id} />
+                <Dashboard user={userData} />
               </ProtectedRoute>
             }
           />
@@ -68,7 +97,11 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile profileData={userData.profile} />
+                <Profile
+                  uid={currentUser.uid}
+                  profileData={userData.profile}
+                  fetchEditUser={fetchEditUser}
+                />
               </ProtectedRoute>
             }
           />
