@@ -11,6 +11,7 @@ import ResetPassword from './pages/ResetPassword';
 import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import Profile from './pages/Profile';
+import Loading from './components/Loading';
 
 function App() {
   const { currentUser } = useAuth();
@@ -48,51 +49,53 @@ function App() {
 
   console.log(userData);
 
-  return (
-    <Routes>
-      {currentUser ? (
-        // Logged in
+  if (currentUser) {
+    // Loading screen while waiting for user data.
+    if (!userData) return <Loading />;
+
+    return (
+      <Routes>
         <Route path="/" element={<Layout />}>
-          {userData && (
-            <>
-              <Route
-                index
-                element={
-                  <ProtectedRoute>
-                    <Dashboard id={userData.id} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <ProtectedRoute>
-                    <Profile profileData={userData.profile} />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path="/account"
-                element={
-                  <ProtectedRoute>
-                    <Account />
-                  </ProtectedRoute>
-                }
-              />
-              <Route path="*" element={<NoMatch />} />
-            </>
-          )}
-        </Route>
-      ) : (
-        // Not logged in
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Landing />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<LogIn />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route
+            index
+            element={
+              <ProtectedRoute>
+                <Dashboard id={userData.id} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <Profile profileData={userData.profile} />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<NoMatch />} />
         </Route>
-      )}
+      </Routes>
+    );
+  }
+
+  // Not logged in
+  return (
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Landing />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/login" element={<LogIn />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="*" element={<NoMatch />} />
+      </Route>
     </Routes>
   );
 }
