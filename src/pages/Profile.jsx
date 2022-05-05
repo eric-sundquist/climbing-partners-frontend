@@ -5,13 +5,28 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useUser } from '../contexts/UserContext';
+import Disciplines from '../components/Disciplines';
 
-function Profile({ uid, profileData, fetchEditUser }) {
-  const { currentUser } = useAuth();
-  const [name, setName] = useState(profileData.name);
-  const [description, setDescription] = useState(profileData.description);
-  const [disciplines, setDisciplines] = useState(profileData.disciplines);
+function Profile() {
+  const { userData, updateUserProfile } = useUser();
+  const [name, setName] = useState(userData.profile.name);
+  const [description, setDescription] = useState(userData.profile.description);
+  const [disciplines, setDisciplines] = useState(userData.profile.disciplines);
+  // const [disciplines, setDisciplines] = useState([
+  //   {
+  //     discipline: 'Sport',
+  //     grade: '5b',
+  //   },
+  //   {
+  //     discipline: 'Trad',
+  //     grade: '7b',
+  //   },
+  //   {
+  //     discipline: 'Bouldering',
+  //     grade: '8A',
+  //   },
+  // ]);
   const [isEditing, setIsEditing] = useState(false);
 
   const toggleEdit = () => {
@@ -21,7 +36,22 @@ function Profile({ uid, profileData, fetchEditUser }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     toggleEdit();
-    fetchEditUser(`/users/${currentUser.uid}/profile`, { name, description, disciplines });
+    updateUserProfile({ name, description, disciplines });
+  };
+
+  const updateDisciplinesState = (newDiscipline, newGrade) => {
+    setDisciplines([
+      {
+        discipline: newDiscipline,
+        grade: newGrade,
+      },
+    ]);
+    // setDisciplines((prevDisciplines) =>
+    //   prevDisciplines.push({
+    //     discipline: newDiscipline,
+    //     grade: newGrade,
+    //   })
+    // );
   };
 
   return (
@@ -59,13 +89,20 @@ function Profile({ uid, profileData, fetchEditUser }) {
               onChange={(event) => setDescription(event.target.value)}
               margin="normal"
             />
-            <Button variant="contained" type="submit">
+            <Typography component="h4" variant="h6">
+              Disciplines
+            </Typography>
+            {/* <Disciplines
+              disciplines={disciplines}
+              updateDisciplinesState={updateDisciplinesState}
+              isEditable={isEditing}
+            /> */}
+            <Button sx={{ marginTop: 2 }} variant="contained" type="submit">
               Save profile
             </Button>
           </Box>
         ) : (
           <>
-            {' '}
             <Typography component="h1" variant="h3">
               {name}
             </Typography>
@@ -77,7 +114,11 @@ function Profile({ uid, profileData, fetchEditUser }) {
             <Typography variant="h5" marginTop={5}>
               Disciplines
             </Typography>
-            <p>Disciplines Length: {disciplines.length}</p>
+            {/* <Disciplines
+              disciplines={disciplines}
+              updateDisciplinesState={updateDisciplinesState}
+              isEditable={isEditing}
+            /> */}
             <Button variant="contained" onClick={toggleEdit}>
               Edit profile
             </Button>

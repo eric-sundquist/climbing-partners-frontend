@@ -1,12 +1,14 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import { useUser } from '../contexts/UserContext';
 
-function Dashboard({ user }) {
+function Dashboard() {
+  const { userData } = useUser();
   return (
     <Container>
       <Typography component="h1" variant="h3">
-        {user.profile.name
-          ? `Welcome ${user.profile.name}!`
+        {userData.profile.name
+          ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}
       </Typography>
       <p>
