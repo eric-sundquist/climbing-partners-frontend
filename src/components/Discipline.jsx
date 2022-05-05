@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 
-function Discipline({ discipline, grade, isEditable }) {
+function Discipline({ index, discipline, grade, isEditing, removeDiscipline }) {
   return (
     <Card sx={{ minWidth: 100 }}>
       <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -13,8 +13,13 @@ function Discipline({ discipline, grade, isEditable }) {
         </Typography>
         <Typography variant="body2">{grade}</Typography>
 
-        {isEditable && (
-          <IconButton aria-label="delete">
+        {isEditing && (
+          <IconButton
+            aria-label="delete"
+            onClick={() => {
+              removeDiscipline(index);
+            }}
+          >
             <DeleteIcon />
           </IconButton>
         )}

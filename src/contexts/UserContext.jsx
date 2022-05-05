@@ -51,10 +51,10 @@ export function UserProvider({ children }) {
    * Updates user on server.
    *
    * @param {String} route - The route to send the request to.
-   * @param {Object} updatedUser - updated user.
+   * @param {Object} updatedUserProfile - updated user.
    * @returns {Promise} JSON response from server.
    */
-  const updateUserProfile = async (updatedUser) => {
+  const updateUserProfile = async (updatedUserProfile) => {
     console.log('FETCHING EDIT USER');
     const res = await fetch(
       `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/profile`,
@@ -64,7 +64,7 @@ export function UserProvider({ children }) {
           authorization: `Bearer ${currentUser.accessToken}`,
           'Content-type': 'application/json',
         },
-        body: JSON.stringify(updatedUser),
+        body: JSON.stringify(updatedUserProfile),
       }
     );
     if (!res.ok) {

@@ -10,10 +10,10 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Discipline from './Discipline';
 
-function Disciplines({ isEditable, disciplines, updateDisciplinesState }) {
+function Disciplines({ isEditing, disciplines, addDiscipline, removeDiscipline }) {
   const [open, setOpen] = useState(false);
-  const [newDiscipline, setNewDiscipline] = useState('');
   const [newGrade, setNewGrade] = useState('');
+  const [newDiscipline, setNewDiscipline] = useState('');
 
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -22,18 +22,26 @@ function Disciplines({ isEditable, disciplines, updateDisciplinesState }) {
   const grades = ['6a', '7a', '8a', '9a'];
 
   return (
-    <Box sx={{ display: 'flex', gap: 2 }}>
-      {disciplines.map((dis) => (
+    <Box sx={{ margin: 2, display: 'flex', gap: 2 }}>
+      {disciplines.map((dis, index) => (
         <Discipline
-          key={dis.discipline}
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          index={index}
           discipline={dis.discipline}
           grade={dis.grade}
-          isEditable={isEditable}
+          isEditing={isEditing}
+          removeDiscipline={removeDiscipline}
         />
       ))}
-      <IconButton onClick={handleOpen} aria-label="add" size="large">
-        <AddCircleIcon fontSize="inherit" />
-      </IconButton>
+
+      {isEditing && (
+        <IconButton onClick={handleOpen} aria-label="add" size="large">
+          <AddCircleIcon fontSize="inherit" />
+        </IconButton>
+      )}
+
+      {/* Add discipline Modal....... Maybe breakout into component? */}
       <Modal
         open={open}
         onClose={handleClose}
@@ -46,22 +54,25 @@ function Disciplines({ isEditable, disciplines, updateDisciplinesState }) {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 400,
+            width: 360,
             bgcolor: 'background.paper',
             border: '1px solid #000',
             borderRadius: 3,
             boxShadow: 24,
-            p: 4,
+            p: 2,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
           }}
         >
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          <FormControl sx={{ m: 1, minWidth: 130 }}>
             <InputLabel id="discipline-select-label">Discipline</InputLabel>
             <Select
               labelId="discipline-select-label"
               id="discipline-select-label"
               value={newDiscipline}
-              label="Discipline"
               onChange={(e) => setNewDiscipline(e.target.value)}
+              label="Discipline"
             >
               {disciplineTypes.map((dis) => (
                 <MenuItem key={dis} value={dis}>
@@ -75,9 +86,9 @@ function Disciplines({ isEditable, disciplines, updateDisciplinesState }) {
             <Select
               labelId="grade-select-label"
               id="grade-select-label"
+              onChange={(e) => setNewGrade(e.target.value)}
               value={newGrade}
               label="Grade"
-              onChange={(e) => setNewGrade(e.target.value)}
             >
               {grades.map((grade) => (
                 <MenuItem key={grade} value={grade}>
@@ -86,9 +97,16 @@ function Disciplines({ isEditable, disciplines, updateDisciplinesState }) {
               ))}
             </Select>
           </FormControl>
-          {/* <Button onClick={updateDisciplinesState(newDiscipline, newGrade)} variant="outlined">
+
+          <Button
+            onClick={() => {
+              addDiscipline(newDiscipline, newGrade);
+              handleClose();
+            }}
+            variant="contained"
+          >
             Add
-          </Button> */}
+          </Button>
         </Box>
       </Modal>
     </Box>
