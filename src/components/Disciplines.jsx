@@ -19,7 +19,7 @@ function Disciplines({ isEditing, disciplines, addDiscipline, removeDiscipline }
   const handleClose = () => setOpen(false);
 
   const disciplineTypes = ['Sport', 'Bouldering', 'Trad'];
-  const grades = ['6a', '7a', '8a', '9a'];
+  const grades = ['5b', '5c', '6a', '6b', '6c', '7a', '7b', '7c', '8a', '8b', '8c'];
 
   return (
     <Box sx={{ margin: 2, display: 'flex', gap: 2 }}>

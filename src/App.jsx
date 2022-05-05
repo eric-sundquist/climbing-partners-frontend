@@ -13,7 +13,6 @@ import Profile from './pages/Profile';
 
 function App() {
   const { currentUser } = useAuth();
-  console.log('Re-rendering APP.js');
 
   if (currentUser) {
     return (

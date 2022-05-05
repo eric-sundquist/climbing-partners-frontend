@@ -1,16 +1,42 @@
+import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
-import ResponsiveAppBar from './ResponsiveAppBar';
+import Navbar from './Navbar';
 
 function Layout() {
   return (
-    <div>
-      <ResponsiveAppBar />
+    <Box
+      sx={{
+        position: 'relative',
+        minHeight: '100vh',
+      }}
+    >
+      <Navbar />
 
-      {/* An <Outlet> renders whatever child route is currently active,
-        so you can think about this <Outlet> as a placeholder for
-        the child routes we defined above. */}
-      <Outlet />
-    </div>
+      <Box
+        sx={{
+          paddingBottom: '3rem',
+        }}
+      >
+        <Outlet />
+      </Box>
+      <Box
+        sx={{
+          height: '3rem',
+          width: '100%',
+          position: 'absolute',
+          bottom: '0',
+          borderTop: '1px solid gray',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: 3,
+        }}
+      >
+        <b>Footer</b>
+        <b>Privacy Policy</b>
+        <b>Another</b>
+      </Box>
+    </Box>
   );
 }
 

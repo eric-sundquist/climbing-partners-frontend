@@ -1,5 +1,5 @@
 import Container from '@mui/material/Container';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import EditProfileContent from '../components/EditProfileContent';
 import ProfileContent from '../components/ProfileContent';
 

@@ -24,7 +24,7 @@ const pagesAnon = [
   { title: 'Sign up', route: '/signup' },
 ];
 
-function ResponsiveAppBar() {
+function Navbar() {
   const { currentUser, logoutUser } = useAuth();
   const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -175,4 +175,4 @@ function ResponsiveAppBar() {
     </AppBar>
   );
 }
-export default ResponsiveAppBar;
+export default Navbar;
