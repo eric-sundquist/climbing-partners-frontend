@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
+import { useUser } from './contexts/UserContext';
 import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import SignUp from './pages/SignUp';
@@ -13,8 +14,9 @@ import Profile from './pages/Profile';
 
 function App() {
   const { currentUser } = useAuth();
+  const { userData } = useUser();
 
-  if (currentUser) {
+  if (currentUser && userData) {
     return (
       <Routes>
         <Route path="/" element={<Layout />}>
