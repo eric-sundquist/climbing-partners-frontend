@@ -1,8 +1,4 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Alert from '@mui/material/Alert';
 import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
 import { useAuth } from '../contexts/AuthContext';
 
 function Account() {

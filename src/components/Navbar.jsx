@@ -13,7 +13,7 @@ import Menu from '@mui/material/Menu';
 import { useAuth } from '../contexts/AuthContext';
 import { useUser } from '../contexts/UserContext';
 
-export default function TestNav() {
+export default function NavBar() {
   const { currentUser, logoutUser } = useAuth();
   const { userData } = useUser();
   const navigate = useNavigate();
@@ -62,7 +62,7 @@ export default function TestNav() {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt={userData.profile.name} src="/static/images/avatar/2.jpg" />
+                  <Avatar alt={userData?.profile?.name} src="/static/images/avatar/2.jpg" />
                 </IconButton>
               </Tooltip>
               <Menu

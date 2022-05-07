@@ -1,28 +1,37 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import CreatePartnerAd from '../components/CreatePartnerAd';
+import Invites from '../components/Invites';
+import Partners from '../components/Partners';
+import PartnerAds from '../components/PartnerAds';
 import { useUser } from '../contexts/UserContext';
 
 function Dashboard() {
   const { userData } = useUser();
   return (
-    <Container component="main">
-      <Typography component="h1" variant="h3">
+    <Container component="main" maxWidth="xl">
+      <Typography sx={{ margin: 2, textAlign: 'center' }} component="h1" variant="h3">
         {userData.profile.name
           ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}
       </Typography>
-      <p>
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio quaerat deleniti
-        perferendis voluptatem ipsa alias, accusamus itaque iure? Ad maxime voluptatibus doloremque,
-        perspiciatis reiciendis et incidunt delectus animi corrupti veritatis explicabo magnam earum
-        quod? Tempora culpa fuga, architecto qui totam, sit, nobis consequatur eaque porro ipsa ex
-        sunt assumenda corporis?
-      </p>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt reiciendis rerum
-        temporibus ipsam maxime? Ipsam voluptatum nisi repudiandae dolorem numquam vitae nam quo
-        cupiditate a explicabo expedita, debitis vero in!
-      </p>
+      <Grid container spacing={2}>
+        <Grid item xs={8}>
+          <Box sx={{ p: 2 }}>
+            <Typography component="h2" variant="h4">
+              Find a climbing partner
+            </Typography>
+            <CreatePartnerAd />
+            <PartnerAds />
+          </Box>
+        </Grid>
+        <Grid item xs={4}>
+          <Invites />
+          <Partners />
+        </Grid>
+      </Grid>
     </Container>
   );
 }
