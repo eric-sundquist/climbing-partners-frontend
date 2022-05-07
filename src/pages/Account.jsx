@@ -6,33 +6,13 @@ import Button from '@mui/material/Button';
 import { useAuth } from '../contexts/AuthContext';
 
 function Account() {
-  const [error, setError] = useState('');
-  const { currentUser, logoutUser } = useAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    setError('');
-    try {
-      await logoutUser();
-      navigate('/login', { replace: true });
-    } catch (er) {
-      setError(`Failed to log out! ${er.message}`);
-    }
-  };
+  const { currentUser } = useAuth();
 
   return (
     <Container component="main" maxWidth="md">
-      {error && <Alert severity="error">{error}</Alert>}
-      <h2>Profile!</h2>
-      {!currentUser && <h3>Not loggoed in!</h3>}
-      {currentUser && (
-        <div>
-          <p>Email: {currentUser.email}</p>
-          <Button variant="contained" onClick={handleLogout}>
-            Log out
-          </Button>
-        </div>
-      )}
+      <h1>Account</h1>
+
+      <h4>Email: {currentUser.email}</h4>
 
       <p>
         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Adipisci tempora labore, iste quis

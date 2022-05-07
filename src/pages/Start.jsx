@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Link as RouterLink } from 'react-router-dom';
 
-function Landing() {
+function Start() {
   return (
     <Container component="main" maxWidth="md">
       <h1>Landing Page</h1>
@@ -28,4 +28,4 @@ function Landing() {
   );
 }
 
-export default Landing;
+export default Start;

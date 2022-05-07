@@ -40,11 +40,11 @@ export function UserProvider({ children }) {
       const getUserData = async () => {
         const userDataFromApi = await fetchUser(`/users/${currentUser.uid}`);
         setUserData(userDataFromApi);
-        setIsLoading(false);
       };
       console.log('fetching user data');
       getUserData();
     }
+    setIsLoading(false);
   }, [currentUser]);
 
   /**

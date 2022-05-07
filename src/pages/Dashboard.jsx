@@ -5,7 +5,7 @@ import { useUser } from '../contexts/UserContext';
 function Dashboard() {
   const { userData } = useUser();
   return (
-    <Container>
+    <Container component="main">
       <Typography component="h1" variant="h3">
         {userData.profile.name
           ? `Welcome ${userData.profile.name}!`
