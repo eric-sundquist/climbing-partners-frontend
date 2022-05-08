@@ -1,16 +1,17 @@
 import React from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+import CreatePartnerAd from './CreatePartnerAd';
 
 function PartnerAds() {
   return (
-    <div>
-      <h1>Current Searches:</h1>
-      <ul>
-        <li>1123</li>
-        <li>1123</li>
-        <li>1123</li>
-        <li>1123</li>
-      </ul>
-    </div>
+    <Box sx={{ p: 2 }}>
+      <Typography gutterBottom component="h2" variant="h4">
+        Find climbing partners!
+      </Typography>
+      <CreatePartnerAd />
+    </Box>
   );
 }
 

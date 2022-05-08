@@ -2,7 +2,6 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import CreatePartnerAd from '../components/CreatePartnerAd';
 import Invites from '../components/Invites';
 import Partners from '../components/Partners';
 import PartnerAds from '../components/PartnerAds';
@@ -19,13 +18,7 @@ function Dashboard() {
       </Typography>
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <Box sx={{ p: 2 }}>
-            <Typography component="h2" variant="h4">
-              Find a climbing partner
-            </Typography>
-            <CreatePartnerAd />
-            <PartnerAds />
-          </Box>
+          <PartnerAds />
         </Grid>
         <Grid item xs={4}>
           <Invites />

@@ -33,6 +33,7 @@ function CreatePartnerAd() {
   const [open, setOpen] = useState(false);
   const handleOpenModule = () => setOpen(true);
   const handleCloseModule = () => setOpen(false);
+  const today = new Date();
 
   // Form ---
   const [date, setDate] = useState(null);
@@ -71,6 +72,16 @@ function CreatePartnerAd() {
         body: JSON.stringify(partnerAdData),
       }
     );
+
+    if (!res.ok) {
+      // TODO
+      // THROW ERROR, Pick up in error boudary???
+      console.log(res.status);
+      console.log(res.statusText);
+    }
+
+    const data = await res.json();
+    console.log(data);
   };
 
   const handleSubmit = (event) => {
@@ -113,6 +124,7 @@ function CreatePartnerAd() {
                 <DatePicker
                   label="Choose day"
                   value={date}
+                  minDate={today}
                   onChange={(newDate) => {
                     setDate(newDate);
                   }}
@@ -141,7 +153,7 @@ function CreatePartnerAd() {
                 margin="normal"
               />
               <Typography component="h6" variant="h6">
-                What disciplines are you interested in?
+                What disciplines and grades are you interested in?
               </Typography>
               <Disciplines
                 disciplines={disciplines}
