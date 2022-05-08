@@ -20,16 +20,20 @@ function ProfileContent({ isEditing, toggleEdit }) {
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 60, height: 60 }} alt={name} />
       <Typography component="h1" variant="h3">
-        {name}
+        {name || 'Your name'}
       </Typography>
       <Box maxWidth="sm">
         <Typography variant="body1" marginTop={5} gutterBottom>
-          {description}
+          {description || 'Tell us more about yourself'}
         </Typography>
       </Box>
-      <Typography variant="h5" marginTop={5}>
-        Disciplines
-      </Typography>
+      {disciplines.length > 0 ? (
+        <Typography variant="h5" marginTop={5}>
+          Disciplines
+        </Typography>
+      ) : (
+        ''
+      )}
       <Disciplines disciplines={disciplines} isEditing={isEditing} />
       <Button
         variant="contained"
