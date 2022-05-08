@@ -14,7 +14,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Disciplines from './Disciplines';
-import { useAuth } from '../contexts/AuthContext';
+import { useUser } from '../contexts/UserContext';
 
 const style = {
   position: 'absolute',
@@ -29,7 +29,8 @@ const style = {
 };
 
 function CreatePartnerAd() {
-  const { currentUser } = useAuth();
+  const { postPartnerAd } = useUser();
+
   const [open, setOpen] = useState(false);
   const handleOpenModule = () => setOpen(true);
   const handleCloseModule = () => setOpen(false);
@@ -60,32 +61,7 @@ function CreatePartnerAd() {
     });
   };
 
-  const postPartnerAd = async (partnerAdData) => {
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/partner-ad`,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${currentUser.accessToken}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(partnerAdData),
-      }
-    );
-
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-    }
-
-    const data = await res.json();
-    console.log(data);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const postAd = async () => {
     const input = {
       date: date,
       disciplines: disciplines,
@@ -94,8 +70,12 @@ function CreatePartnerAd() {
       equipment: equipment,
       transport: transport,
     };
-    console.log(input);
     postPartnerAd(input);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    postAd();
     handleCloseModule();
   };
 

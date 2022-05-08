@@ -3,6 +3,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 function Discipline({ index, discipline, grade, isEditing, removeDiscipline }) {
   return (
@@ -14,14 +15,16 @@ function Discipline({ index, discipline, grade, isEditing, removeDiscipline }) {
         <Typography variant="body2">{grade}</Typography>
 
         {isEditing && (
-          <IconButton
-            aria-label="delete"
-            onClick={() => {
-              removeDiscipline(index);
-            }}
-          >
-            <DeleteIcon />
-          </IconButton>
+          <Tooltip title="Delete">
+            <IconButton
+              aria-label="delete"
+              onClick={() => {
+                removeDiscipline(index);
+              }}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
         )}
       </CardContent>
     </Card>

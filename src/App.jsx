@@ -17,6 +17,8 @@ function App() {
   const { currentUser } = useAuth();
   const { userData } = useUser();
 
+  console.log(currentUser);
+
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
