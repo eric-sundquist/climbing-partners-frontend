@@ -19,9 +19,10 @@ export function UserProvider({ children }) {
    * @returns {Promise} JSON response from server.
    */
   const fetchUser = async (route) => {
+    const token = await currentUser.getIdToken();
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
       headers: {
-        authorization: `Bearer ${currentUser.accessToken}`,
+        authorization: `Bearer ${token}`,
       },
     });
     if (!res.ok) {
@@ -56,12 +57,13 @@ export function UserProvider({ children }) {
    */
   const updateUserProfile = async (updatedUserProfile) => {
     console.log('FETCHING EDIT USER');
+    const token = await currentUser.getIdToken();
     const res = await fetch(
       `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/profile`,
       {
         method: 'PUT',
         headers: {
-          authorization: `Bearer ${currentUser.accessToken}`,
+          authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
         body: JSON.stringify(updatedUserProfile),
@@ -73,18 +75,25 @@ export function UserProvider({ children }) {
       console.log(res.statusText);
     }
 
-    const data = await res.json();
+    const profileData = await res.json();
 
-    setUserData(data);
+    setUserData((prev) => {
+      console.log(profileData);
+      // eslint-disable-next-line prefer-const
+      let { profile, ...rest } = prev;
+      profile = profileData;
+      return { profile, ...rest };
+    });
   };
 
   const postPartnerAd = async (partnerAdData) => {
+    const token = await currentUser.getIdToken();
     const res = await fetch(
       `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/partner-ad`,
       {
         method: 'POST',
         headers: {
-          authorization: `Bearer ${currentUser.accessToken}`,
+          authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
         body: JSON.stringify(partnerAdData),
@@ -107,12 +116,13 @@ export function UserProvider({ children }) {
   };
 
   const deleteAd = async (adId) => {
+    const token = await currentUser.getIdToken();
     const res = await fetch(
       `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/partner-ad/${adId}`,
       {
         method: 'DELETE',
         headers: {
-          authorization: `Bearer ${currentUser.accessToken}`,
+          authorization: `Bearer ${token}`,
         },
       }
     );

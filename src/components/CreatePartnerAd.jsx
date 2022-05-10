@@ -9,6 +9,7 @@ import Backdrop from '@mui/material/Backdrop';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
+import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -121,6 +122,7 @@ function CreatePartnerAd() {
                 inputRef={locationRef}
                 autoFocus
                 margin="normal"
+                helperText="The location will filter what search results you get. Please provide the most accurate naming possible."
               />
               <TextField
                 fullWidth
@@ -133,7 +135,7 @@ function CreatePartnerAd() {
                 margin="normal"
               />
               <Typography component="h6" variant="h6">
-                What disciplines and grades are you interested in?
+                What disciplines and grades?
               </Typography>
               <Disciplines
                 disciplines={disciplines}
