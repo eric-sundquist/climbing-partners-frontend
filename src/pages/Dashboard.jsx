@@ -10,7 +10,7 @@ function Dashboard() {
   const { userData } = useUser();
   return (
     <Container component="main" maxWidth="xl">
-      <Typography sx={{ margin: 2, textAlign: 'center' }} component="h1" variant="h3">
+      <Typography sx={{ margin: 2, textAlign: 'center' }} component="h2" variant="h3">
         {userData.profile.name
           ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}

@@ -18,6 +18,7 @@ import Tooltip from '@mui/material/Tooltip';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import Disciplines from './Disciplines';
+import MatchingPartners from './MatchingPartners';
 import { useUser } from '../contexts/UserContext';
 
 const ExpandMore = styled((props) => {
@@ -65,7 +66,7 @@ function OwnerPartnerAd({ date, location, description, disciplines, equipment, t
       />
 
       <CardActions disableSpacing>
-        <Button>View matched</Button>
+        <MatchingPartners location={location} date={date} />
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

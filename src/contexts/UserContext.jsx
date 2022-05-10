@@ -105,6 +105,7 @@ export function UserProvider({ children }) {
       // THROW ERROR, Pick up in error boudary???
       console.log(res.status);
       console.log(res.statusText);
+      console.log(await res.json());
     }
     const ad = await res.json();
     // Update state
@@ -142,12 +143,30 @@ export function UserProvider({ children }) {
     });
   };
 
+  const searchMatchingPartners = async (date, location) => {
+    const token = await currentUser.getIdToken();
+    const route = `/partner-ads/filter?location=${location}&date=${date}`;
+    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    if (!res.ok) {
+      // Handle errors... Maybe alert flash
+      console.log(res.status);
+      console.log(res);
+    }
+
+    return res.json();
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     userData,
     updateUserProfile,
     postPartnerAd,
     deleteAd,
+    searchMatchingPartners,
   };
 
   return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;

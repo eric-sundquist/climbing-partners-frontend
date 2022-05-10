@@ -9,7 +9,6 @@ import Backdrop from '@mui/material/Backdrop';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
-import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -38,7 +37,7 @@ function CreatePartnerAd() {
   const today = new Date();
 
   // Form ---
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(today);
   const [disciplines, setDisciplines] = useState([]);
   const [equipment, setEquipment] = useState(false);
   const [transport, setTransport] = useState(false);
