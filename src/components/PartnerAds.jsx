@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import CreatePartnerAd from './CreatePartnerAd';
-import OwnerPartnerAd from './OwnerPartnerAd';
+import OwnerPartnerAd from './123OwnerPartnerAd';
 import { useUser } from '../contexts/UserContext';
 
 function PartnerAds() {
