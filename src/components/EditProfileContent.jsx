@@ -56,7 +56,6 @@ function EditProfileContent({ isEditing, toggleEdit }) {
       <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <TextField
           fullWidth
-          required
           id="name"
           label="Name"
           name="name"
@@ -68,16 +67,16 @@ function EditProfileContent({ isEditing, toggleEdit }) {
         <TextField
           fullWidth
           name="description"
-          label="Description"
+          label="Tell us some more about yourself and your climbing"
           id="description"
           defaultValue={description}
           inputRef={descriptionRef}
           multiline
-          minRows={4}
+          minRows={6}
           margin="normal"
         />
         <Typography component="h4" variant="h6">
-          Disciplines
+          Add your disciplines and the max grade you have climbed
         </Typography>
         <Disciplines
           disciplines={updatedDisciplines}

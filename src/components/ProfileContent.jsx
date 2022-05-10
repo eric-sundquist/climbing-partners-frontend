@@ -24,7 +24,7 @@ function ProfileContent({ isEditing, toggleEdit }) {
       </Typography>
       <Box maxWidth="sm">
         <Typography variant="body1" marginTop={5} gutterBottom>
-          {description || 'Tell us more about yourself'}
+          {description || 'Tell us some more about yourself. Whats your favorite climbs?'}
         </Typography>
       </Box>
       {disciplines.length > 0 ? (

@@ -18,6 +18,7 @@ function App() {
   const { userData } = useUser();
 
   console.log(currentUser);
+  console.log(userData);
 
   return (
     <Routes>
