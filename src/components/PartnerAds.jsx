@@ -6,6 +6,12 @@ import { useUser } from '../contexts/UserContext';
 
 function PartnerAds() {
   const { userData } = useUser();
+  const dateIsInThePast = (dateIsoString) => {
+    const date = new Date(dateIsoString);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date < today;
+  };
   console.log(userData.ads);
   return (
     <Box sx={{ p: 2 }}>
@@ -17,18 +23,20 @@ function PartnerAds() {
         <Typography gutterBottom component="h4" variant="h6">
           Your current searches:
         </Typography>
-        {userData.ads.map((ad) => (
-          <OwnerPartnerAd
-            key={ad.id}
-            id={ad.id}
-            date={ad.date}
-            location={ad.location}
-            description={ad.description}
-            disciplines={ad.disciplines}
-            equipment={ad.equipment}
-            transport={ad.transport}
-          />
-        ))}
+        {userData.ads
+          .filter((ad) => !dateIsInThePast(ad.date))
+          .map((ad) => (
+            <OwnerPartnerAd
+              key={ad.id}
+              id={ad.id}
+              date={ad.date}
+              location={ad.location}
+              description={ad.description}
+              disciplines={ad.disciplines}
+              equipment={ad.equipment}
+              transport={ad.transport}
+            />
+          ))}
       </Box>
     </Box>
   );

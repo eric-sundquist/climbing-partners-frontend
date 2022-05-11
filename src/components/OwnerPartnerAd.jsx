@@ -17,8 +17,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Tooltip from '@mui/material/Tooltip';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
+import { Link as RouterLink } from 'react-router-dom';
 import Disciplines from './Disciplines';
-import MatchingPartners from './MatchingPartners';
+
 import { useUser } from '../contexts/UserContext';
 
 const ExpandMore = styled((props) => {
@@ -66,7 +67,15 @@ function OwnerPartnerAd({ date, location, description, disciplines, equipment, t
       />
 
       <CardActions disableSpacing>
-        <MatchingPartners location={location} date={date} />
+        <Button
+          component={RouterLink}
+          to="/search"
+          state={{ date: date, location: location }}
+          variant="text"
+          color="primary"
+        >
+          View matched climbers
+        </Button>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}

@@ -1,4 +1,5 @@
 import Card from '@mui/material/Card';
+import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -7,7 +8,7 @@ import Tooltip from '@mui/material/Tooltip';
 
 function Discipline({ index, discipline, grade, isEditing, removeDiscipline }) {
   return (
-    <Card sx={{ minWidth: 100 }}>
+    <Card>
       <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           {discipline}

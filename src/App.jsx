@@ -12,6 +12,7 @@ import Layout from './components/Layout';
 import ProtectedRoute from './components/ProtectedRoute';
 import AnonOnlyRoute from './components/AnonOnlyRoute';
 import Profile from './pages/Profile';
+import MatchingPartners from './pages/MatchingPartners';
 
 function App() {
   const { currentUser } = useAuth();
@@ -35,6 +36,14 @@ function App() {
               // Anon user
               <Start />
             )
+          }
+        />
+        <Route
+          path="/search"
+          element={
+            <ProtectedRoute>
+              <MatchingPartners />
+            </ProtectedRoute>
           }
         />
         <Route
