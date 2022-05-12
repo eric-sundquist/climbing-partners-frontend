@@ -13,12 +13,15 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AnonOnlyRoute from './components/AnonOnlyRoute';
 import Profile from './pages/Profile';
 import MatchingPartners from './pages/MatchingPartners';
+import OtherUserProfile from './pages/OtherUserProfile';
 
 function App() {
   const { currentUser } = useAuth();
   const { userData } = useUser();
 
+  console.log('USER:');
   console.log(currentUser);
+  console.log('USER-DATA:');
   console.log(userData);
 
   return (
@@ -36,6 +39,14 @@ function App() {
               // Anon user
               <Start />
             )
+          }
+        />
+        <Route
+          path="/view-profile"
+          element={
+            <ProtectedRoute>
+              <OtherUserProfile />
+            </ProtectedRoute>
           }
         />
         <Route

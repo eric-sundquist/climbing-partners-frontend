@@ -160,6 +160,30 @@ export function UserProvider({ children }) {
     return res.json();
   };
 
+  const sendInvite = async (targetUserId, adId) => {
+    const token = await currentUser.getIdToken();
+    const res = await fetch(
+      `${process.env.REACT_APP_CP_APP_API_URL}/users/${targetUserId}/invite`,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ fromUserId: userData.uid, adId: adId }),
+      }
+    );
+
+    if (!res.ok) {
+      // TODO
+      // THROW ERROR, Pick up in error boudary???
+      console.log(res.status);
+      console.log(res.statusText);
+      console.log(await res.json());
+    }
+    return res.json();
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     userData,
@@ -167,6 +191,7 @@ export function UserProvider({ children }) {
     postPartnerAd,
     deleteAd,
     searchMatchingPartners,
+    sendInvite,
   };
 
   return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;

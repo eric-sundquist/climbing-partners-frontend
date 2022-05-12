@@ -14,10 +14,11 @@ function Loading() {
         height: '100vh',
       }}
     >
-      <Box sx={{ width: 400, maxWidth: '90%' }}>
-        <Stack spacing={1}>
-          <Skeleton variant="text" />
-          <Skeleton variant="rectangular" height={300} />
+      <Box sx={{ width: '90%' }}>
+        <Stack spacing={3}>
+          <Skeleton variant="rectangular" height={200} />
+          <Skeleton variant="rectangular" height={200} />
+          <Skeleton variant="rectangular" height={200} />
         </Stack>
       </Box>
     </Container>
