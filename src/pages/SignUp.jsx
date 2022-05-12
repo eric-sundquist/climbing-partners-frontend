@@ -49,6 +49,7 @@ export default function SignUp() {
       if (!res.ok) {
         throw new Error(`${res.statusText} - POST request failed`);
       }
+      await res.json();
 
       navigate('/', { replace: true });
     } catch (e) {

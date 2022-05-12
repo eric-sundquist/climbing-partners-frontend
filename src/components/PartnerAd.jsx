@@ -2,16 +2,12 @@ import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import MessageIcon from '@mui/icons-material/Message';
 import CheckIcon from '@mui/icons-material/Check';
-import Button from '@mui/material/Button';
-import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { Link as RouterLink } from 'react-router-dom';
 import Tooltip from '@mui/material/Tooltip';
 import Disciplines from './Disciplines';
@@ -23,6 +19,7 @@ function PartnerAd({ id, date, location, description, disciplines, equipment, tr
 
   const handleSendInvite = () => {
     sendInvite(owner.uid, id);
+    // set flash message confirm invite sent.
   };
 
   return (
@@ -39,6 +36,20 @@ function PartnerAd({ id, date, location, description, disciplines, equipment, tr
               <Avatar />
             </IconButton>
           </Tooltip>
+        }
+        action={
+          <>
+            <Tooltip title="Send invite" sx={{ pr: 2 }}>
+              <IconButton aria-label="Send invite" onClick={handleSendInvite}>
+                <PersonAddIcon sx={{ fontSize: 30 }} />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Send message">
+              <IconButton aria-label="chat" component={RouterLink} to="/chat" state={{}}>
+                <MessageIcon fsx={{ fontSize: 30 }} />
+              </IconButton>
+            </Tooltip>
+          </>
         }
         title={owner.profile.name}
         titleTypographyProps={{ variant: 'h6' }}
@@ -87,7 +98,7 @@ function PartnerAd({ id, date, location, description, disciplines, equipment, tr
           </Box>
         )}
       </CardContent>
-      <CardActions>
+      {/* <CardActions>
         <Box sx={{ flexGrow: 1 }} />
 
         <Tooltip title="Send invite" sx={{ pr: 2 }}>
@@ -100,7 +111,7 @@ function PartnerAd({ id, date, location, description, disciplines, equipment, tr
             <MessageIcon fsx={{ fontSize: 30 }} />
           </IconButton>
         </Tooltip>
-      </CardActions>
+      </CardActions> */}
     </Card>
   );
 }

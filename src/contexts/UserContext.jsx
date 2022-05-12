@@ -163,14 +163,14 @@ export function UserProvider({ children }) {
   const sendInvite = async (targetUserId, adId) => {
     const token = await currentUser.getIdToken();
     const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${targetUserId}/invite`,
+      `${process.env.REACT_APP_CP_APP_API_URL}/users/${targetUserId}/invites`,
       {
         method: 'POST',
         headers: {
           authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({ fromUserId: userData.uid, adId: adId }),
+        body: JSON.stringify({ fromUserId: userData.id, adId: adId }),
       }
     );
 
@@ -181,7 +181,35 @@ export function UserProvider({ children }) {
       console.log(res.statusText);
       console.log(await res.json());
     }
-    return res.json();
+  };
+
+  const deleteInvite = async (inviteId) => {
+    const token = await currentUser.getIdToken();
+    const res = await fetch(
+      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/invites/${inviteId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      // TODO
+      // THROW ERROR, Pick up in error boudary???
+      console.log(res.status);
+      console.log(res.statusText);
+      console.log(await res.json());
+      throw new Error(res.status);
+    }
+    setUserData((prev) => {
+      // eslint-disable-next-line prefer-const
+      let { invites, ...rest } = prev;
+      // eslint-disable-next-line no-underscore-dangle
+      invites = invites.filter((invite) => invite._id !== inviteId);
+      return { invites, ...rest };
+    });
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
@@ -192,6 +220,7 @@ export function UserProvider({ children }) {
     deleteAd,
     searchMatchingPartners,
     sendInvite,
+    deleteInvite,
   };
 
   return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;

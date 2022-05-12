@@ -12,7 +12,6 @@ function PartnerAds() {
     today.setHours(0, 0, 0, 0);
     return date < today;
   };
-  console.log(userData.ads);
   return (
     <Box sx={{ p: 2 }}>
       <Typography gutterBottom component="h2" variant="h4">

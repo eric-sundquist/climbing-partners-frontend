@@ -84,7 +84,7 @@ function EditProfileContent({ isEditing, toggleEdit }) {
           removeDiscipline={removeDiscipline}
           isEditing={isEditing}
         />
-        <Button sx={{ marginTop: 2 }} variant="contained" type="submit">
+        <Button sx={{ marginTop: 2, marginBottom: 2 }} variant="contained" type="submit">
           Save profile
         </Button>
       </Box>

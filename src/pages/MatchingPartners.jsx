@@ -15,7 +15,7 @@ import { useUser } from '../contexts/UserContext';
 
 function MatchingPartners() {
   const { date, location } = useLocation().state;
-  const { searchMatchingPartners } = useUser();
+  const { userData, searchMatchingPartners } = useUser();
   const [matched, setMatched] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -49,19 +49,21 @@ function MatchingPartners() {
               There are no matching climbers
             </Typography>
           )}
-          {matched.map((ad) => (
-            <PartnerAd
-              key={ad.id}
-              id={ad.id}
-              owner={ad.owner}
-              date={ad.date}
-              location={ad.location}
-              description={ad.description}
-              disciplines={ad.disciplines}
-              equipment={ad.equipment}
-              transport={ad.transport}
-            />
-          ))}
+          {matched
+            .filter((ad) => ad.owner.uid !== userData.uid)
+            .map((ad) => (
+              <PartnerAd
+                key={ad.id}
+                id={ad.id}
+                owner={ad.owner}
+                date={ad.date}
+                location={ad.location}
+                description={ad.description}
+                disciplines={ad.disciplines}
+                equipment={ad.equipment}
+                transport={ad.transport}
+              />
+            ))}
         </Box>
       )}
     </Container>
