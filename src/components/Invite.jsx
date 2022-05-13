@@ -2,7 +2,6 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
-import Box from '@mui/material/Box';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
@@ -31,10 +30,14 @@ const ExpandMore = styled((props) => {
 }));
 
 function Invite({ id, date, location, description, name, profile }) {
-  const { deleteInvite } = useUser();
+  const { deleteInvite, acceptInvite } = useUser();
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+
+  const handleAcceptInvite = () => {
+    acceptInvite(id);
   };
 
   const handleDeclineInvite = () => {
@@ -63,7 +66,7 @@ function Invite({ id, date, location, description, name, profile }) {
 
       <CardActions disableSpacing>
         <Tooltip title="Accept invite">
-          <IconButton aria-label="Accept invite">
+          <IconButton aria-label="Accept invite" onClick={handleAcceptInvite}>
             <CheckCircleOutlineIcon sx={{ fontSize: '30px' }} color="success" />
           </IconButton>
         </Tooltip>

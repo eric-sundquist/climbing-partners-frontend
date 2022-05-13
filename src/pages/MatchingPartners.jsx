@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
-import Backdrop from '@mui/material/Backdrop';
 import Box from '@mui/material/Box';
-import Modal from '@mui/material/Modal';
-import Fade from '@mui/material/Fade';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
@@ -14,15 +10,13 @@ import Loading from '../components/Loading';
 import { useUser } from '../contexts/UserContext';
 
 function MatchingPartners() {
-  const { date, location } = useLocation().state;
+  const { date, location, adId } = useLocation().state;
   const { userData, searchMatchingPartners } = useUser();
   const [matched, setMatched] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getMatches = async () => {
     const mathchingPartners = await searchMatchingPartners(date, location);
-    console.log('MATCH RESULTS....!');
-    console.log(mathchingPartners);
     // TODO: FILTER OUT OWN ENTRIES
     setMatched(mathchingPartners);
   };
@@ -62,6 +56,7 @@ function MatchingPartners() {
                 disciplines={ad.disciplines}
                 equipment={ad.equipment}
                 transport={ad.transport}
+                searcherAdId={adId}
               />
             ))}
         </Box>

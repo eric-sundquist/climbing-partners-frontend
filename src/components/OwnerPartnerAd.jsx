@@ -35,7 +35,7 @@ const ExpandMore = styled((props) => {
 }));
 
 function OwnerPartnerAd({ date, location, description, disciplines, equipment, transport, id }) {
-  const { userData, deleteAd } = useUser();
+  const { deleteAd } = useUser();
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -70,7 +70,7 @@ function OwnerPartnerAd({ date, location, description, disciplines, equipment, t
         <Button
           component={RouterLink}
           to="/search"
-          state={{ date: date, location: location }}
+          state={{ date: date, location: location, adId: id }}
           variant="text"
           color="primary"
         >

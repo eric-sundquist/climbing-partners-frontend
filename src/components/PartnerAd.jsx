@@ -14,7 +14,7 @@ import Disciplines from './Disciplines';
 
 import { useUser } from '../contexts/UserContext';
 
-function PartnerAd({ id, date, location, description, disciplines, equipment, transport, owner }) {
+function PartnerAd({ id, description, disciplines, equipment, transport, owner }) {
   const { sendInvite } = useUser();
 
   const handleSendInvite = () => {

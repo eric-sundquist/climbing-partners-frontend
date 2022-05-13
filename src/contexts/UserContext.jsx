@@ -160,7 +160,7 @@ export function UserProvider({ children }) {
     return res.json();
   };
 
-  const sendInvite = async (targetUserId, adId) => {
+  const sendInvite = async (targetUserId, adId, searcherAdId) => {
     const token = await currentUser.getIdToken();
     const res = await fetch(
       `${process.env.REACT_APP_CP_APP_API_URL}/users/${targetUserId}/invites`,
@@ -170,7 +170,7 @@ export function UserProvider({ children }) {
           authorization: `Bearer ${token}`,
           'Content-type': 'application/json',
         },
-        body: JSON.stringify({ fromUserId: userData.id, adId: adId }),
+        body: JSON.stringify({ fromUserId: userData.id, adId: adId, searcherAdId: searcherAdId }),
       }
     );
 
@@ -212,6 +212,44 @@ export function UserProvider({ children }) {
     });
   };
 
+  const acceptInvite = async (inviteId) => {
+    const token = await currentUser.getIdToken();
+    const res = await fetch(
+      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/sessions`,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${token}`,
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify({ inviteId: inviteId }),
+      }
+    );
+
+    if (!res.ok) {
+      // TODO
+      // THROW ERROR, Pick up in error boudary???
+      console.log(res.status);
+      console.log(res.statusText);
+      console.log(await res.json());
+      throw new Error(res.status);
+    }
+
+    // Remove other user ad
+
+    // Remove invite
+
+    // Remove user ad
+
+    // update userData
+
+    // setUserData((prev) => {
+    //   // eslint-disable-next-line prefer-const
+    //   const { invites, ...rest } = prev;
+    //   return { invites, ...rest };
+    // });
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     userData,
@@ -221,6 +259,7 @@ export function UserProvider({ children }) {
     searchMatchingPartners,
     sendInvite,
     deleteInvite,
+    acceptInvite,
   };
 
   return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;
