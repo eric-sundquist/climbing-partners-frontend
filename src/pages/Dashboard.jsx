@@ -1,6 +1,7 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 import Invites from '../components/Invites';
 import Sessions from '../components/Sessions';
 import Partners from '../components/Partners';
@@ -16,14 +17,18 @@ function Dashboard() {
           ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}
       </Typography>
-      <Grid container spacing={2}>
-        <Grid item xs={8}>
-          <PartnerAds />
-          <Sessions />
+      <Grid container spacing={2} mt={2} mb={4}>
+        <Grid item xs={12} md={8}>
+          <Stack spacing={3}>
+            <PartnerAds />
+            <Sessions />
+          </Stack>
         </Grid>
-        <Grid item xs={4}>
-          <Invites />
-          <Partners />
+        <Grid item xs={12} md={4}>
+          <Stack spacing={2}>
+            <Invites />
+            <Partners />
+          </Stack>
         </Grid>
       </Grid>
     </Container>

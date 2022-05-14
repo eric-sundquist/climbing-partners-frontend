@@ -57,7 +57,7 @@ function Session({ id, date, location, description, name, profile }) {
             </IconButton>
           </Tooltip>
         }
-        title={`Invite from ${name}`}
+        title={`Climbing session with ${name}`}
         titleTypographyProps={{ variant: 'subtitle2' }}
         subheader={`Climbing in ${location}. ${format(parseISO(date), 'PPPP')}`}
       />

@@ -12,19 +12,21 @@ function Sessions() {
       {sessions.length > 0 ? (
         <Stack spacing={2}>
           <Typography variant="h6">Upcoming climbing sessions:</Typography>
-          {sessions.map((session) => (
-            <Session
-              // eslint-disable-next-line no-underscore-dangle
-              key={session._id}
-              // eslint-disable-next-line no-underscore-dangle
-              id={session._id}
-              date={session.date}
-              location={session.location}
-              description={session.description}
-              name={session.withUser.profile.name}
-              profile={session.withUser.profile}
-            />
-          ))}
+          {sessions
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
+            .map((session) => (
+              <Session
+                // eslint-disable-next-line no-underscore-dangle
+                key={session._id}
+                // eslint-disable-next-line no-underscore-dangle
+                id={session._id}
+                date={session.date}
+                location={session.location}
+                description={session.description}
+                name={session.withUser.profile.name}
+                profile={session.withUser.profile}
+              />
+            ))}
         </Stack>
       ) : (
         <Typography variant="body1" color="initial">
