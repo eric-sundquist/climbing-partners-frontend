@@ -12,7 +12,7 @@ function Invites() {
   return (
     <Box>
       {invites.length > 0 ? (
-        <Stack>
+        <Stack spacing={2}>
           {invites.map((invite) => (
             <Invite
               // eslint-disable-next-line no-underscore-dangle

@@ -2,6 +2,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Invites from '../components/Invites';
+import Sessions from '../components/Sessions';
 import Partners from '../components/Partners';
 import PartnerAds from '../components/PartnerAds';
 import { useUser } from '../contexts/UserContext';
@@ -18,6 +19,7 @@ function Dashboard() {
       <Grid container spacing={2}>
         <Grid item xs={8}>
           <PartnerAds />
+          <Sessions />
         </Grid>
         <Grid item xs={4}>
           <Invites />

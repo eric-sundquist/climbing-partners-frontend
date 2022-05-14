@@ -14,11 +14,11 @@ import Disciplines from './Disciplines';
 
 import { useUser } from '../contexts/UserContext';
 
-function PartnerAd({ id, description, disciplines, equipment, transport, owner }) {
+function PartnerAd({ id, description, disciplines, equipment, transport, owner, searcherAdId }) {
   const { sendInvite } = useUser();
 
   const handleSendInvite = () => {
-    sendInvite(owner.uid, id);
+    sendInvite(owner.uid, id, searcherAdId);
     // set flash message confirm invite sent.
   };
 
@@ -39,7 +39,7 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner }
         }
         action={
           <>
-            <Tooltip title="Send invite" sx={{ pr: 2 }}>
+            <Tooltip title="Send invite" sx={{ mr: 1 }}>
               <IconButton aria-label="Send invite" onClick={handleSendInvite}>
                 <PersonAddIcon sx={{ fontSize: 30 }} />
               </IconButton>

@@ -234,20 +234,9 @@ export function UserProvider({ children }) {
       console.log(await res.json());
       throw new Error(res.status);
     }
-
-    // Remove other user ad
-
-    // Remove invite
-
-    // Remove user ad
-
     // update userData
-
-    // setUserData((prev) => {
-    //   // eslint-disable-next-line prefer-const
-    //   const { invites, ...rest } = prev;
-    //   return { invites, ...rest };
-    // });
+    const user = await fetchUser(`/users/${currentUser.uid}`);
+    setUserData(user);
   };
 
   // eslint-disable-next-line react/jsx-no-constructed-context-values
