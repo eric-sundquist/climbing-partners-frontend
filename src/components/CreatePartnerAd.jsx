@@ -93,13 +93,16 @@ function CreatePartnerAd() {
         BackdropProps={{
           timeout: 500,
         }}
+        sx={{
+          overflow: 'scroll',
+        }}
       >
         <Fade in={open}>
           <Box sx={style}>
             <Typography id="search-climbing-partner" variant="h6" component="h2">
               Search climbing partner
             </Typography>
-            <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 2 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   label="Choose day"
@@ -125,8 +128,9 @@ function CreatePartnerAd() {
               />
               <TextField
                 fullWidth
+                required
                 name="description"
-                label="Some more beta about what you prefere to do?"
+                label="More information about what you would like to do"
                 id="description"
                 inputRef={descriptionRef}
                 multiline

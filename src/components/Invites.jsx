@@ -11,7 +11,7 @@ function Invites() {
 
   return (
     <Box>
-      {invites.length > 0 ? (
+      {invites.length > 0 && (
         <Stack spacing={2}>
           {invites.map((invite) => (
             <Invite
@@ -27,10 +27,6 @@ function Invites() {
             />
           ))}
         </Stack>
-      ) : (
-        <Typography variant="body1" color="initial">
-          You got no invites
-        </Typography>
       )}
     </Box>
   );
