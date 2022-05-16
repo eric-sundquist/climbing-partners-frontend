@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import Alert from '@mui/material/Alert';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Box from '@mui/material/Box';
@@ -16,14 +18,22 @@ import { useUser } from '../contexts/UserContext';
 
 function PartnerAd({ id, description, disciplines, equipment, transport, owner, searcherAdId }) {
   const { sendInvite } = useUser();
+  const [isInvBtnDisabled, setIsInvBtnDisabled] = useState(false);
+  const [isAlert, setIsAlert] = useState(false);
 
   const handleSendInvite = () => {
     sendInvite(owner.uid, id, searcherAdId);
-    // set flash message confirm invite sent.
+    setIsInvBtnDisabled(true);
+    setIsAlert(true);
   };
 
   return (
     <Card sx={{ mt: 2 }}>
+      {isAlert && (
+        <Alert sx={{ m: 2 }} severity="success">
+          Invite has been sent!
+        </Alert>
+      )}
       <CardHeader
         avatar={
           <Tooltip title="Go to Profile">
@@ -40,7 +50,11 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner, 
         action={
           <>
             <Tooltip title="Send invite" sx={{ mr: 1 }}>
-              <IconButton aria-label="Send invite" onClick={handleSendInvite}>
+              <IconButton
+                disabled={isInvBtnDisabled}
+                aria-label="Send invite"
+                onClick={handleSendInvite}
+              >
                 <PersonAddIcon sx={{ fontSize: 30 }} />
               </IconButton>
             </Tooltip>

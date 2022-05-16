@@ -10,6 +10,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormLabel from '@mui/material/FormLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
+import Alert from '@mui/material/Alert';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -26,6 +27,8 @@ const style = {
   borderRadius: 2,
   boxShadow: 24,
   p: 4,
+  overflow: 'scroll',
+  maxHeight: '100vh',
 };
 
 function CreatePartnerAd() {
@@ -35,6 +38,7 @@ function CreatePartnerAd() {
   const handleOpenModule = () => setOpen(true);
   const handleCloseModule = () => setOpen(false);
   const today = new Date();
+  const [error, setError] = useState('');
 
   // Form ---
   const [date, setDate] = useState(today);
@@ -75,8 +79,14 @@ function CreatePartnerAd() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    postAd();
-    handleCloseModule();
+
+    if (date && locationRef.current.value && descriptionRef.current.value) {
+      postAd();
+      handleCloseModule();
+      setError('');
+    } else {
+      setError('Please fill in a date, location and description');
+    }
   };
 
   return (
@@ -93,19 +103,21 @@ function CreatePartnerAd() {
         BackdropProps={{
           timeout: 500,
         }}
-        sx={{
-          overflow: 'scroll',
-        }}
       >
         <Fade in={open}>
           <Box sx={style}>
-            <Typography id="search-climbing-partner" variant="h6" component="h2">
+            <Typography sx={{ mt: 2 }} id="search-climbing-partner" variant="h6" component="h2">
               Search climbing partner
             </Typography>
+            {error && (
+              <Alert sx={{ mb: 2 }} severity="error">
+                {error}
+              </Alert>
+            )}
             <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
-                  label="Choose day"
+                  label="Choose date"
                   value={date}
                   minDate={today}
                   onChange={(newDate) => {
@@ -117,7 +129,6 @@ function CreatePartnerAd() {
               </LocalizationProvider>
               <TextField
                 fullWidth
-                required
                 id="location"
                 label="Location"
                 name="location"
@@ -128,7 +139,6 @@ function CreatePartnerAd() {
               />
               <TextField
                 fullWidth
-                required
                 name="description"
                 label="More information about what you would like to do"
                 id="description"
@@ -162,7 +172,7 @@ function CreatePartnerAd() {
                 />
               </FormGroup>
 
-              <Button sx={{ marginTop: 2 }} variant="contained" type="submit">
+              <Button sx={{ marginTop: 1, mb: 2 }} variant="contained" type="submit">
                 Create search
               </Button>
             </Box>

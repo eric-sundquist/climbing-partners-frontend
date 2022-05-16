@@ -25,6 +25,7 @@ function PartnerAds() {
           <Typography variant="h6">Active partner searches:</Typography>
           {userData.ads
             .filter((ad) => !dateIsInThePast(ad.date))
+            .sort((a, b) => new Date(a.date) - new Date(b.date))
             .map((ad) => (
               <OwnerPartnerAd
                 key={ad.id}

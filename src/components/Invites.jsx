@@ -1,7 +1,5 @@
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-
-import Typography from '@mui/material/Typography';
 import Invite from './Invite';
 import { useUser } from '../contexts/UserContext';
 
