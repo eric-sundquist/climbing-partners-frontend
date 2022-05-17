@@ -28,8 +28,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function Session({ id, date, location, description, name, profile }) {
-  // const { } = useUser();
+function Session({ id, date, location, description, name, profile, withUserId }) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -52,7 +51,12 @@ function Session({ id, date, location, description, name, profile }) {
         }
         action={
           <Tooltip title="Send message">
-            <IconButton aria-label="chat" component={RouterLink} to="/chat" state={{}}>
+            <IconButton
+              aria-label="chat"
+              component={RouterLink}
+              to="/chat"
+              state={{ withUserId: withUserId }}
+            >
               <MessageIcon fsx={{ fontSize: 30 }} />
             </IconButton>
           </Tooltip>

@@ -25,6 +25,7 @@ function Sessions() {
                 description={session.description}
                 name={session.withUser.profile.name}
                 profile={session.withUser.profile}
+                withUserId={session.withUser.id}
               />
             ))}
         </Stack>

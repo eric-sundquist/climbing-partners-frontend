@@ -59,7 +59,13 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner, 
               </IconButton>
             </Tooltip>
             <Tooltip title="Send message">
-              <IconButton aria-label="chat" component={RouterLink} to="/chat" state={{}}>
+              <IconButton
+                aria-label="chat"
+                component={RouterLink}
+                to="/chat"
+                state={{ withUserId: owner.id }}
+              >
+                {' '}
                 <MessageIcon fsx={{ fontSize: 30 }} />
               </IconButton>
             </Tooltip>
