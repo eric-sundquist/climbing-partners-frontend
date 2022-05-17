@@ -13,6 +13,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AnonOnlyRoute from './components/AnonOnlyRoute';
 import Profile from './pages/Profile';
 import MatchingPartners from './pages/MatchingPartners';
+import Messenger from './pages/Messenger';
+
 import OtherUserProfile from './pages/OtherUserProfile';
 
 function App() {
@@ -46,6 +48,14 @@ function App() {
           element={
             <ProtectedRoute>
               <OtherUserProfile />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/messenger"
+          element={
+            <ProtectedRoute>
+              <Messenger />
             </ProtectedRoute>
           }
         />
