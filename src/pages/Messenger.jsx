@@ -2,23 +2,20 @@ import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { useLocation } from 'react-router-dom';
-
 import { Typography } from '@mui/material';
 import UserChatCard from '../components/UserChatCard';
+import Chat from '../components/Chat';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
 function Messenger() {
   const [chats, setChats] = useState([]);
-
   const { currentUser } = useAuth();
   const { userData } = useUser();
   const routerState = useLocation().state;
-
   const [currentChat, setCurrentChat] = useState(null);
 
   const createChat = async (withUserId) => {
@@ -93,7 +90,7 @@ function Messenger() {
 
   return (
     <Container maxWidth="lg">
-      <Grid container spacing={3}>
+      <Grid marginTop={1} marginBottom={2} container spacing={3}>
         <Grid item xs={12} md={4}>
           <Stack spacing={2}>
             {chats.map((chat) => (
@@ -108,14 +105,7 @@ function Messenger() {
         </Grid>
         <Grid item xs={12} md={8}>
           {currentChat ? (
-            <Box>
-              <CardHeader avatar={<Avatar />} title={currentChat.users[1].profile.name} />
-              <Box>
-                <Typography variant="h1 " color="text.secondary">
-                  Chat bubblor med mere...
-                </Typography>
-              </Box>
-            </Box>
+            <Chat chat={currentChat} user={userData} />
           ) : (
             <Typography variant="h6" color="initial">
               Choose a chat in the chat menu
