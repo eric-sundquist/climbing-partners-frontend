@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import ChatBubble from './ChatBubble';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -40,7 +41,7 @@ function Chat({ chat }) {
     event.preventDefault();
     const message = {
       chatId: chat.id,
-      fromUser: userData.id,
+      fromUser: userData.uid,
       text: newMessage,
     };
 
@@ -79,16 +80,27 @@ function Chat({ chat }) {
         flexDirection: 'column',
       }}
     >
-      <Box sx={{ flexGrow: 1, overflowY: 'scroll' }}>
-        messages render below
+      <Box
+        sx={{
+          p: 1,
+          flexGrow: 1,
+          overflowY: 'scroll',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1,
+        }}
+      >
         {messages.map((message) => (
-          <Box key={message.id}>
-            <Paper sx={{ display: 'inline-block', p: 1, mt: 1 }}>{message.text}</Paper>
-          </Box>
+          <ChatBubble
+            text={message.text}
+            currentUserUId={currentUser.uid}
+            fromUserUId={message.fromUser}
+            key={message.id}
+          />
         ))}
       </Box>
       <Paper
-        sx={{ minHeight: 80, display: 'flex', gap: 2, alignItems: 'center', p: 1 }}
+        sx={{ minHeight: 80, display: 'flex', gap: 1, alignItems: 'center', p: 1 }}
         component="form"
         onSubmit={handleSubmit}
         autoComplete="off"
@@ -99,11 +111,11 @@ function Chat({ chat }) {
           label="Send message"
           required
           fullWidth
-          multiline
+          // multiline
           value={newMessage}
           onChange={handleChange}
         />
-        <Button type="submit" variant="outlined" color="secondary">
+        <Button type="submit" variant="contained" color="primary">
           Send
         </Button>
       </Paper>

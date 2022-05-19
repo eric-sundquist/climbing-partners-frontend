@@ -54,9 +54,12 @@ function App() {
         <Route
           path="/chat"
           element={
-            <ProtectedRoute>
-              <Messenger />
-            </ProtectedRoute>
+            currentUser &&
+            userData && (
+              <ProtectedRoute>
+                <Messenger />
+              </ProtectedRoute>
+            )
           }
         />
         <Route

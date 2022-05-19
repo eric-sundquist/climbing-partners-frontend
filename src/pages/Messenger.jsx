@@ -47,7 +47,7 @@ function Messenger() {
   useEffect(() => {
     const getChats = async () => {
       const token = await currentUser.getIdToken();
-      const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/chats/${currentUser.uid}`, {
+      const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/chats/${userData.id}`, {
         headers: {
           authorization: `Bearer ${token}`,
         },
@@ -62,6 +62,9 @@ function Messenger() {
       }
 
       const chatData = await res.json();
+      console.log('get chats:');
+      console.log(chatData);
+
       setChats(chatData);
 
       // Open chat with this user if withUserId present
@@ -71,9 +74,11 @@ function Messenger() {
           .filter((chat) => chat.users.some((user) => user.id === withUserId))
           .pop();
         if (!matchedChat) {
+          console.log('creating chat');
           // Create a chat with user
           createChat(withUserId);
         } else {
+          console.log('found chat');
           setCurrentChat(matchedChat);
         }
       }
@@ -90,29 +95,37 @@ function Messenger() {
 
   return (
     <Container maxWidth="lg">
-      <Grid marginTop={1} marginBottom={2} container spacing={3}>
-        <Grid item xs={12} md={4}>
-          <Stack spacing={2}>
-            {chats.map((chat) => (
-              <UserChatCard
-                handleOpenChat={handleOpenChat}
-                key={chat.id}
-                chat={chat}
-                userData={userData}
-              />
-            ))}
-          </Stack>
+      {chats.length > 0 ? (
+        <Grid marginTop={1} marginBottom={2} container spacing={3}>
+          <Grid item xs={12} md={3}>
+            <Stack spacing={2}>
+              {chats.map((chat) => (
+                <UserChatCard
+                  handleOpenChat={handleOpenChat}
+                  key={chat.id}
+                  chat={chat}
+                  currentChat={currentChat}
+                  userData={userData}
+                />
+              ))}
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={9}>
+            {currentChat ? (
+              <Chat chat={currentChat} user={userData} />
+            ) : (
+              <Typography variant="h6" color="initial">
+                Choose a chat in the chat menu
+              </Typography>
+            )}
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={8}>
-          {currentChat ? (
-            <Chat chat={currentChat} user={userData} />
-          ) : (
-            <Typography variant="h6" color="initial">
-              Choose a chat in the chat menu
-            </Typography>
-          )}
-        </Grid>
-      </Grid>
+      ) : (
+        <Typography marginTop={5} variant="h5" color="initial">
+          You got no active chats with any user. Start a chat with a user and you will find them
+          here.
+        </Typography>
+      )}
     </Container>
   );
 }
