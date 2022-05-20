@@ -62,8 +62,8 @@ function Messenger() {
       }
 
       const chatData = await res.json();
-      console.log('get chats:');
-      console.log(chatData);
+      // console.log('get chats:');
+      // console.log(chatData);
 
       setChats(chatData);
 

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { io } from 'socket.io-client';
 import ChatBubble from './ChatBubble';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -13,6 +13,30 @@ function Chat({ chat }) {
   const { userData } = useUser();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [incomingMessage, setIncomingMessage] = useState(null);
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io(process.env.REACT_APP_CP_APP_SOCKET_URL);
+
+    socket.current.on('get-message', (data) => {
+      console.log('FICK ETT MEDDELANDE');
+      console.log(data);
+      setIncomingMessage({
+        fromUser: data.senderUid,
+        text: data.text,
+        id: Math.ceil(Math.random() * 1000),
+      });
+    });
+
+    socket.current.emit('add-user', currentUser.uid);
+  }, []);
+
+  useEffect(() => {
+    if (incomingMessage && chat?.users.some((user) => user.uid === incomingMessage.fromUser)) {
+      setMessages((prev) => [...prev, incomingMessage]);
+    }
+  }, [incomingMessage, chat]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -45,7 +69,6 @@ function Chat({ chat }) {
       text: newMessage,
     };
 
-    // const toUserID = chat.users.find((user) => user !== userData.id);
     const token = await currentUser.getIdToken();
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/messages`, {
       method: 'POST',
@@ -67,11 +90,19 @@ function Chat({ chat }) {
     const messageData = await res.json();
     setMessages((prev) => [...prev, messageData]);
     setNewMessage('');
+
+    const receivingUser = chat.users.find((user) => user.uid !== currentUser.uid);
+    socket.current.emit('send-message', {
+      senderUid: currentUser.uid,
+      receiverUid: receivingUser.uid,
+      text: newMessage,
+    });
   };
 
   const handleChange = (event) => {
     setNewMessage(event.target.value);
   };
+
   return (
     <Box
       sx={{

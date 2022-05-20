@@ -6,12 +6,11 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 function UserChatCard({ chat, currentChat, userData, handleOpenChat }) {
-  const isCurrentChat = chat.id === currentChat.id;
-  const otherUser = chat.users.filter((user) => user.uid !== userData.uid).pop();
-  // console.log(otherUser);
+  const isCurrentChat = chat.id === currentChat?.id;
+  const otherUser = chat.users.find((user) => user.uid !== userData.uid);
 
   return (
-    <Card sx={isCurrentChat && { bgcolor: '#1976d2', color: 'white' }}>
+    <Card sx={isCurrentChat ? { bgcolor: '#1976d2', color: 'white' } : {}}>
       <CardHeader
         avatar={<Avatar />}
         action={
