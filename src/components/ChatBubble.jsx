@@ -15,13 +15,15 @@ const otherMessageStyle = {
   alignSelf: 'flex-start',
 };
 
-function ChatBubble({ text, fromUserUId, currentUserUId }) {
+function ChatBubble({ text, fromUserUId, currentUserUId, refProp }) {
   const isOwnMessage = fromUserUId === currentUserUId;
   return (
     <Paper sx={isOwnMessage ? ownMessageStyle : otherMessageStyle}>
-      <Typography variant="body1" color="inherit">
-        {text}
-      </Typography>
+      <div ref={refProp}>
+        <Typography variant="body1" color="inherit">
+          {text}
+        </Typography>
+      </div>
     </Paper>
   );
 }

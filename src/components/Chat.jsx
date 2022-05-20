@@ -15,13 +15,12 @@ function Chat({ chat }) {
   const [newMessage, setNewMessage] = useState('');
   const [incomingMessage, setIncomingMessage] = useState(null);
   const socket = useRef();
+  const scrollDownRef = useRef(null);
 
   useEffect(() => {
     socket.current = io(process.env.REACT_APP_CP_APP_SOCKET_URL);
 
     socket.current.on('get-message', (data) => {
-      console.log('FICK ETT MEDDELANDE');
-      console.log(data);
       setIncomingMessage({
         fromUser: data.senderUid,
         text: data.text,
@@ -103,6 +102,10 @@ function Chat({ chat }) {
     setNewMessage(event.target.value);
   };
 
+  useEffect(() => {
+    scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <Box
       sx={{
@@ -123,6 +126,7 @@ function Chat({ chat }) {
       >
         {messages.map((message) => (
           <ChatBubble
+            refProp={scrollDownRef}
             text={message.text}
             currentUserUId={currentUser.uid}
             fromUserUId={message.fromUser}

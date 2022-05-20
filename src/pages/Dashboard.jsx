@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Invites from '../components/Invites';
 import Sessions from '../components/Sessions';
-import Partners from '../components/Partners';
 import PartnerAds from '../components/PartnerAds';
 import { useUser } from '../contexts/UserContext';
 
@@ -20,15 +19,13 @@ function Dashboard() {
       <Grid container spacing={2} mt={2} mb={4}>
         <Grid item xs={12} md={8}>
           <Stack spacing={3}>
+            <Invites />
             <PartnerAds />
             <Sessions />
           </Stack>
         </Grid>
         <Grid item xs={12} md={4}>
-          <Stack spacing={2}>
-            <Invites />
-            <Partners />
-          </Stack>
+          <Stack spacing={2} />
         </Grid>
       </Grid>
     </Container>
