@@ -18,7 +18,7 @@ function Chat({ chat }) {
   const scrollDownRef = useRef(null);
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_CP_APP_SOCKET_URL);
+    socket.current = io(process.env.REACT_APP_CP_APP_API_URL);
 
     socket.current.on('get-message', (data) => {
       setIncomingMessage({
