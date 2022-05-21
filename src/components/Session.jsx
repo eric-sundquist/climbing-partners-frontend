@@ -14,7 +14,6 @@ import Tooltip from '@mui/material/Tooltip';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { Link as RouterLink } from 'react-router-dom';
-import { useUser } from '../contexts/UserContext';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,7 +27,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function Session({ id, date, location, description, name, profile, withUserId }) {
+function Session({ date, location, description, name, profile, withUserId }) {
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
     setExpanded(!expanded);

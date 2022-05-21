@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import { useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import UserChatCard from '../components/UserChatCard';

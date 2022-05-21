@@ -29,6 +29,7 @@ const style = {
   p: 4,
   overflow: 'scroll',
   maxHeight: '100vh',
+  minWidth: 350,
 };
 
 function CreatePartnerAd() {
