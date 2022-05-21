@@ -13,7 +13,7 @@ import Menu from '@mui/material/Menu';
 import { useAuth } from '../contexts/AuthContext';
 import { useUser } from '../contexts/UserContext';
 
-export default function NavBar() {
+export default function Navbar() {
   const { currentUser, logoutUser } = useAuth();
   const { userData } = useUser();
   const navigate = useNavigate();

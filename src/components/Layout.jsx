@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 import { Outlet } from 'react-router-dom';
-import NavBar from './NavBar';
+import Navbar from './Navbar';
 
 function Layout() {
   return (
@@ -10,7 +10,7 @@ function Layout() {
         minHeight: '100vh',
       }}
     >
-      <NavBar />
+      <Navbar />
 
       <Box
         sx={{
