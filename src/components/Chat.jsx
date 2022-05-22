@@ -18,17 +18,26 @@ function Chat({ chat }) {
   const scrollDownRef = useRef(null);
 
   useEffect(() => {
-    socket.current = io(process.env.REACT_APP_CP_APP_API_URL);
-
-    socket.current.on('get-message', (data) => {
-      setIncomingMessage({
-        fromUser: data.senderUid,
-        text: data.text,
-        id: Math.ceil(Math.random() * 1000),
+    const connectSocket = async () => {
+      const token = await currentUser.getIdToken();
+      socket.current = io(process.env.REACT_APP_CP_APP_API_URL, {
+        auth: {
+          token: token,
+        },
       });
-    });
 
-    socket.current.emit('add-user', currentUser.uid);
+      socket.current.on('get-message', (data) => {
+        setIncomingMessage({
+          fromUser: data.senderUid,
+          text: data.text,
+          id: Math.ceil(Math.random() * 1000),
+        });
+      });
+
+      socket.current.emit('add-user', currentUser.uid);
+    };
+
+    connectSocket();
   }, []);
 
   useEffect(() => {
