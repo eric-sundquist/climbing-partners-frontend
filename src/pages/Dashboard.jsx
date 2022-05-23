@@ -10,24 +10,17 @@ import { useUser } from '../contexts/UserContext';
 function Dashboard() {
   const { userData } = useUser();
   return (
-    <Container component="main" maxWidth="xl">
-      <Typography sx={{ margin: 2, textAlign: 'center' }} component="h2" variant="h3">
+    <Container component="main" maxWidth="md">
+      <Typography sx={{ margin: 2, textAlign: 'center' }} component="h2" variant="h4">
         {userData.profile.name
           ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}
       </Typography>
-      <Grid container spacing={2} mt={2} mb={4}>
-        <Grid item xs={12} md={8}>
-          <Stack spacing={3}>
-            <Invites />
-            <PartnerAds />
-            <Sessions />
-          </Stack>
-        </Grid>
-        <Grid item xs={12} md={4}>
-          <Stack spacing={2} />
-        </Grid>
-      </Grid>
+      <Stack spacing={3}>
+        <Invites />
+        <PartnerAds />
+        <Sessions />
+      </Stack>
     </Container>
   );
 }

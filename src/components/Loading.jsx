@@ -1,7 +1,5 @@
 import Container from '@mui/material/Container';
-import Box from '@mui/material/Box';
-import Skeleton from '@mui/material/Skeleton';
-import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
 
 function Loading() {
   return (
@@ -11,16 +9,10 @@ function Loading() {
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '100vh',
+        height: '80vh',
       }}
     >
-      <Box sx={{ width: '90%' }}>
-        <Stack spacing={3}>
-          <Skeleton variant="rectangular" height={200} />
-          <Skeleton variant="rectangular" height={200} />
-          <Skeleton variant="rectangular" height={200} />
-        </Stack>
-      </Box>
+      <CircularProgress />
     </Container>
   );
 }

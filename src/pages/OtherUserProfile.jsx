@@ -2,12 +2,13 @@ import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { useLocation } from 'react-router-dom';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+
 import Disciplines from '../components/Disciplines';
 
 function OtherUserProfile() {
-  const { profile } = useLocation().state;
-  const { name, disciplines, description } = profile;
+  const { owner } = useLocation().state;
+  const { name, disciplines, description } = owner.profile;
 
   return (
     <Box
@@ -35,7 +36,13 @@ function OtherUserProfile() {
         ''
       )}
       <Disciplines disciplines={disciplines} />
-      <Button variant="contained" color="primary">
+      <Button
+        component={RouterLink}
+        to="/chat"
+        state={{ withUserId: owner.id }}
+        variant="contained"
+        color="primary"
+      >
         Send Message
       </Button>
     </Box>

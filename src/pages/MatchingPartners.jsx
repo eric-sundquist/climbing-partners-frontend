@@ -17,14 +17,15 @@ function MatchingPartners() {
 
   const getMatches = async () => {
     const mathchingPartners = await searchMatchingPartners(date, location);
-    // TODO: FILTER OUT OWN ENTRIES
-    setMatched(mathchingPartners);
+
+    setMatched(mathchingPartners.filter((ad) => ad.owner.uid !== userData.uid));
+    setIsLoading(false);
   };
 
   useEffect(() => {
     getMatches();
-    setIsLoading(false);
   }, []);
+
   return (
     <Container maxWidth="sm">
       {isLoading ? (
@@ -43,22 +44,20 @@ function MatchingPartners() {
               There are no matching climbers
             </Typography>
           )}
-          {matched
-            .filter((ad) => ad.owner.uid !== userData.uid)
-            .map((ad) => (
-              <PartnerAd
-                key={ad.id}
-                id={ad.id}
-                owner={ad.owner}
-                date={ad.date}
-                location={ad.location}
-                description={ad.description}
-                disciplines={ad.disciplines}
-                equipment={ad.equipment}
-                transport={ad.transport}
-                searcherAdId={adId}
-              />
-            ))}
+          {matched.map((ad) => (
+            <PartnerAd
+              key={ad.id}
+              id={ad.id}
+              owner={ad.owner}
+              date={ad.date}
+              location={ad.location}
+              description={ad.description}
+              disciplines={ad.disciplines}
+              equipment={ad.equipment}
+              transport={ad.transport}
+              searcherAdId={adId}
+            />
+          ))}
         </Box>
       )}
     </Container>

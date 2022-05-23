@@ -41,7 +41,7 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner, 
               aria-label="avatar"
               component={RouterLink}
               to="/view-profile"
-              state={{ profile: owner.profile }}
+              state={{ owner: owner }}
             >
               <Avatar />
             </IconButton>
@@ -118,20 +118,6 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner, 
           </Box>
         )}
       </CardContent>
-      {/* <CardActions>
-        <Box sx={{ flexGrow: 1 }} />
-
-        <Tooltip title="Send invite" sx={{ pr: 2 }}>
-          <IconButton aria-label="Send invite" onClick={handleSendInvite}>
-            <PersonAddIcon sx={{ fontSize: 30 }} />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Send message">
-          <IconButton aria-label="chat" component={RouterLink} to="/chat" state={{}}>
-            <MessageIcon fsx={{ fontSize: 30 }} />
-          </IconButton>
-        </Tooltip>
-      </CardActions> */}
     </Card>
   );
 }

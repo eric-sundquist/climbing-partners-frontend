@@ -9,7 +9,7 @@ function Sessions() {
 
   return (
     <Box>
-      {sessions.length > 0 ? (
+      {sessions.length > 0 && (
         <Stack spacing={2}>
           <Typography variant="h6">Upcoming climbing sessions:</Typography>
           {sessions
@@ -29,10 +29,6 @@ function Sessions() {
               />
             ))}
         </Stack>
-      ) : (
-        <Typography variant="body1" color="initial">
-          You got no upcoming sessions
-        </Typography>
       )}
     </Box>
   );

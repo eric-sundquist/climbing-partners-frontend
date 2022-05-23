@@ -21,7 +21,7 @@ function PartnerAds() {
       <CreatePartnerAd />
 
       {userData.ads.length > 0 && (
-        <Stack spacing={2}>
+        <Stack sx={{ mt: 3 }} spacing={2}>
           <Typography variant="h6">Active partner searches:</Typography>
           {userData.ads
             .filter((ad) => !dateIsInThePast(ad.date))

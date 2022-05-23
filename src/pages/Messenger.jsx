@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import { Typography } from '@mui/material';
 import UserChatCard from '../components/UserChatCard';
 import Chat from '../components/Chat';
+import Loading from '../components/Loading';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -15,6 +16,7 @@ function Messenger() {
   const { userData } = useUser();
   const routerState = useLocation().state;
   const [currentChat, setCurrentChat] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const createChat = async (withUserId) => {
     const token = await currentUser.getIdToken();
@@ -60,9 +62,6 @@ function Messenger() {
       }
 
       const chatData = await res.json();
-      // console.log('get chats:');
-      // console.log(chatData);
-
       setChats(chatData);
 
       // Open chat with this user if withUserId present
@@ -72,14 +71,13 @@ function Messenger() {
           .filter((chat) => chat.users.some((user) => user.id === withUserId))
           .pop();
         if (!matchedChat) {
-          console.log('creating chat');
           // Create a chat with user
           createChat(withUserId);
         } else {
-          console.log('found chat');
           setCurrentChat(matchedChat);
         }
       }
+      setIsLoading(false);
     };
     getChats();
   }, []);
@@ -90,6 +88,10 @@ function Messenger() {
 
   console.log('Before Render!');
   console.log(chats);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <Container maxWidth="lg">
@@ -120,8 +122,7 @@ function Messenger() {
         </Grid>
       ) : (
         <Typography marginTop={5} variant="h5" color="initial">
-          You got no active chats with any user. Start a chat with a user and you will find them
-          here.
+          You don't have any active conversations. Match with another climber to start a chat.
         </Typography>
       )}
     </Container>

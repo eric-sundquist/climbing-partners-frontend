@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
+import MessageIcon from '@mui/icons-material/Message';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -61,6 +62,11 @@ export default function Navbar() {
 
           {currentUser && (
             <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Chat" sx={{ marginRight: 2 }}>
+                <IconButton aria-label="chat" component={RouterLink} to="/chat">
+                  <MessageIcon sx={{ color: 'white' }} />
+                </IconButton>
+              </Tooltip>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={userData?.profile?.name} />
