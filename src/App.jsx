@@ -103,8 +103,8 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="*" element={<NoMatch />} />
       </Route>
-      <Route path="*" element={<NoMatch />} />
     </Routes>
   );
 }
