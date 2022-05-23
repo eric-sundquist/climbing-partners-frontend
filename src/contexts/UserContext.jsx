@@ -239,6 +239,10 @@ export function UserProvider({ children }) {
     setUserData(user);
   };
 
+  const clearUserData = () => {
+    setUserData(null);
+  };
+
   // eslint-disable-next-line react/jsx-no-constructed-context-values
   const value = {
     userData,
@@ -249,6 +253,7 @@ export function UserProvider({ children }) {
     sendInvite,
     deleteInvite,
     acceptInvite,
+    clearUserData,
   };
 
   return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;

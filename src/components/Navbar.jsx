@@ -15,7 +15,7 @@ import { useUser } from '../contexts/UserContext';
 
 export default function Navbar() {
   const { currentUser, logoutUser } = useAuth();
-  const { userData } = useUser();
+  const { userData, clearUserData } = useUser();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -30,6 +30,7 @@ export default function Navbar() {
   const handleLogOut = async () => {
     try {
       await logoutUser();
+      clearUserData();
       navigate('/login');
     } catch (er) {
       // handle error alert globaly??
@@ -82,9 +83,6 @@ export default function Navbar() {
               >
                 <MenuItem component={RouterLink} to="/profile" onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">Profile</Typography>
-                </MenuItem>
-                <MenuItem component={RouterLink} to="/account" onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Account</Typography>
                 </MenuItem>
                 <MenuItem
                   onClick={() => {

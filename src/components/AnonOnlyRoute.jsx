@@ -6,7 +6,7 @@ function AnonOnlyRoute({ children }) {
   const { currentUser } = useAuth();
 
   if (currentUser) {
-    return <Navigate to="/" />;
+    return <Navigate to="/dashboard" />;
   }
 
   return children;

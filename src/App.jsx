@@ -5,7 +5,6 @@ import Start from './pages/Start';
 import Dashboard from './pages/Dashboard';
 import SignUp from './pages/SignUp';
 import LogIn from './pages/LogIn';
-import Account from './pages/Account';
 import NoMatch from './pages/NoMatch';
 import ResetPassword from './pages/ResetPassword';
 import Layout from './components/Layout';
@@ -32,15 +31,41 @@ function App() {
         <Route
           index
           element={
-            currentUser && userData ? (
-              // Auth user
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            ) : (
-              // Anon user
+            <AnonOnlyRoute>
               <Start />
-            )
+            </AnonOnlyRoute>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <AnonOnlyRoute>
+              <SignUp />
+            </AnonOnlyRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <AnonOnlyRoute>
+              <LogIn />
+            </AnonOnlyRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <AnonOnlyRoute>
+              <ResetPassword />
+            </AnonOnlyRoute>
+          }
+        />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
           }
         />
         <Route
@@ -76,38 +101,6 @@ function App() {
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/account"
-          element={
-            <ProtectedRoute>
-              <Account />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/signup"
-          element={
-            <AnonOnlyRoute>
-              <SignUp />
-            </AnonOnlyRoute>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <AnonOnlyRoute>
-              <LogIn />
-            </AnonOnlyRoute>
-          }
-        />
-        <Route
-          path="/reset-password"
-          element={
-            <AnonOnlyRoute>
-              <ResetPassword />
-            </AnonOnlyRoute>
           }
         />
         <Route path="*" element={<NoMatch />} />
