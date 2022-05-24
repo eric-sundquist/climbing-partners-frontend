@@ -41,7 +41,7 @@ function PartnerAd({ id, description, disciplines, equipment, transport, owner, 
               aria-label="avatar"
               component={RouterLink}
               to="/view-profile"
-              state={{ owner: owner }}
+              state={{ user: owner }}
             >
               <Avatar />
             </IconButton>

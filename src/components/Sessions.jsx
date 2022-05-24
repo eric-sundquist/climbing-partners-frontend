@@ -18,14 +18,10 @@ function Sessions() {
               <Session
                 // eslint-disable-next-line no-underscore-dangle
                 key={session._id}
-                // eslint-disable-next-line no-underscore-dangle
-                id={session._id}
                 date={session.date}
                 location={session.location}
                 description={session.description}
-                name={session.withUser.profile.name}
-                profile={session.withUser.profile}
-                withUserId={session.withUser.id}
+                withUser={session.withUser}
               />
             ))}
         </Stack>

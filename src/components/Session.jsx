@@ -27,8 +27,10 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-function Session({ date, location, description, name, profile, withUserId }) {
+function Session({ date, location, description, withUser }) {
   const [expanded, setExpanded] = React.useState(false);
+  const { profile } = withUser;
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -42,7 +44,7 @@ function Session({ date, location, description, name, profile, withUserId }) {
               aria-label="avatar"
               component={RouterLink}
               to="/view-profile"
-              state={{ profile: profile }}
+              state={{ user: withUser }}
             >
               <Avatar />
             </IconButton>
@@ -54,13 +56,13 @@ function Session({ date, location, description, name, profile, withUserId }) {
               aria-label="chat"
               component={RouterLink}
               to="/chat"
-              state={{ withUserId: withUserId }}
+              state={{ withUserId: withUser.id }}
             >
               <MessageIcon fsx={{ fontSize: 30 }} />
             </IconButton>
           </Tooltip>
         }
-        title={`Climbing session with ${name}`}
+        title={`Climbing session with ${profile.name}`}
         titleTypographyProps={{ variant: 'subtitle2' }}
         subheader={`Climbing in ${location}. ${format(parseISO(date), 'PPPP')}`}
       />

@@ -7,8 +7,8 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 import Disciplines from '../components/Disciplines';
 
 function OtherUserProfile() {
-  const { owner } = useLocation().state;
-  const { name, disciplines, description } = owner.profile;
+  const { user } = useLocation().state;
+  const { name, disciplines, description } = user.profile;
 
   return (
     <Box
@@ -39,7 +39,7 @@ function OtherUserProfile() {
       <Button
         component={RouterLink}
         to="/chat"
-        state={{ withUserId: owner.id }}
+        state={{ withUserId: user.id }}
         variant="contained"
         color="primary"
       >
