@@ -141,6 +141,7 @@ function CreatePartnerAd() {
               <TextField
                 fullWidth
                 name="description"
+                autoComplete="off"
                 label="More information about what you would like to do"
                 id="description"
                 inputRef={descriptionRef}

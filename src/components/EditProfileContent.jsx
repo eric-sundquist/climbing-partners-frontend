@@ -61,6 +61,7 @@ function EditProfileContent({ isEditing, toggleEdit }) {
           name="name"
           defaultValue={name}
           inputRef={nameRef}
+          autoComplete="off"
           autoFocus
           margin="normal"
         />
@@ -73,6 +74,7 @@ function EditProfileContent({ isEditing, toggleEdit }) {
           inputRef={descriptionRef}
           multiline
           minRows={6}
+          autoComplete="off"
           margin="normal"
         />
         <Typography component="h4" variant="h6">

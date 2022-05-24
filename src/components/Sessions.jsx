@@ -8,7 +8,7 @@ function Sessions() {
   const { sessions } = useUser().userData;
 
   return (
-    <Box>
+    <Box sx={{ pb: 2 }}>
       {sessions.length > 0 && (
         <Stack spacing={2}>
           <Typography variant="h6">Upcoming climbing sessions:</Typography>

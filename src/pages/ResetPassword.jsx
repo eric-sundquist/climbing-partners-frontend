@@ -2,10 +2,9 @@ import { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
 import { Link as RouterLink } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -33,7 +32,6 @@ export default function ResetPassword() {
       await resetPassword(emailRef.current.value);
       setInfo('An email reset email has been sent. Please check your inbox.');
     } catch (e) {
-      console.log(e.code + e.message);
       if (e.code === 'auth/user-not-found') {
         setError('No registered user with that email.');
       } else if (e.code === 'auth/invalid-email') {
@@ -79,15 +77,16 @@ export default function ResetPassword() {
               autoComplete="email"
               autoFocus
             />
-            <Button
-              disable={isLoading ? 'true' : undefined}
+            <LoadingButton
+              loading={isLoading}
+              loadingPosition="start"
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Reset Password
-            </Button>
+            </LoadingButton>
             <Button
               component={RouterLink}
               to="/login"

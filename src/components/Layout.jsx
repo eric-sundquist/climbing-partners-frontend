@@ -14,7 +14,7 @@ function Layout() {
 
       <Box
         sx={{
-          paddingBottom: '3rem',
+          paddingBottom: 6,
         }}
       >
         <Outlet />

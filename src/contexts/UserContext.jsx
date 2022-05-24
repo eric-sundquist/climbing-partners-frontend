@@ -9,7 +9,6 @@ export function useUser() {
 
 export function UserProvider({ children }) {
   const { currentUser } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState('');
 
   /**
@@ -45,7 +44,6 @@ export function UserProvider({ children }) {
       console.log('fetching user data');
       getUserData();
     }
-    setIsLoading(false);
   }, [currentUser]);
 
   /**
@@ -256,5 +254,5 @@ export function UserProvider({ children }) {
     clearUserData,
   };
 
-  return <UserContext.Provider value={value}>{!isLoading && children}</UserContext.Provider>;
+  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 }

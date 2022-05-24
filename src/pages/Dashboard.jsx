@@ -15,7 +15,7 @@ function Dashboard() {
           ? `Welcome ${userData.profile.name}!`
           : 'Welcome, please update your profile!'}
       </Typography>
-      <Stack sx={{ pb: 2 }} spacing={3}>
+      <Stack spacing={3}>
         <Invites />
         <PartnerAds />
         <Sessions />

@@ -1,11 +1,9 @@
 import { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-// import FormControlLabel from '@mui/material/FormControlLabel';
-// import Checkbox from '@mui/material/Checkbox';
+import LoadingButton from '@mui/lab/LoadingButton';
 import Link from '@mui/material/Link';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import Grid from '@mui/material/Grid';
@@ -96,15 +94,16 @@ export default function LogIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
-            <Button
-              disable={isLoading ? 'true' : undefined}
+            <LoadingButton
+              loading={isLoading}
+              loadingPosition="start"
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Log In
-            </Button>
+            </LoadingButton>
             <Grid container>
               <Grid item xs>
                 <Link component={RouterLink} to="/reset-password" variant="body2">

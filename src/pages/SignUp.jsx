@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
-import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -115,15 +115,16 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
-              disable={isLoading ? 'true' : undefined}
+            <LoadingButton
+              loading={isLoading}
+              loadingPosition="start"
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign Up
-            </Button>
+            </LoadingButton>
             <Grid container justifyContent="center">
               <Grid item>
                 <Link component={RouterLink} to="/login" variant="body2">
