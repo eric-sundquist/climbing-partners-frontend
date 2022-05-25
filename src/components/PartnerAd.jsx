@@ -16,13 +16,13 @@ import Disciplines from './Disciplines';
 
 import { useUser } from '../contexts/UserContext';
 
-function PartnerAd({ id, description, disciplines, equipment, transport, owner, searcherAdId }) {
+function PartnerAd({ id, description, disciplines, equipment, transport, owner, currentUserAdId }) {
   const { sendInvite } = useUser();
   const [isInvBtnDisabled, setIsInvBtnDisabled] = useState(false);
   const [isAlert, setIsAlert] = useState(false);
 
   const handleSendInvite = () => {
-    sendInvite(owner.uid, id, searcherAdId);
+    sendInvite(owner.uid, id, currentUserAdId);
     setIsInvBtnDisabled(true);
     setIsAlert(true);
   };

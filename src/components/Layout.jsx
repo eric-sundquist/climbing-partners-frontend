@@ -1,5 +1,7 @@
 import Box from '@mui/material/Box';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link as RouterLink } from 'react-router-dom';
+
+import Link from '@mui/material/Link';
 import Navbar from './Navbar';
 
 function Layout() {
@@ -32,9 +34,9 @@ function Layout() {
           gap: 3,
         }}
       >
-        <b>Footer</b>
-        <b>Privacy Policy</b>
-        <b>Another</b>
+        <Link component={RouterLink} to="/privacy-policy">
+          Privacy Policy
+        </Link>
       </Box>
     </Box>
   );

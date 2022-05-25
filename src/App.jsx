@@ -15,6 +15,7 @@ import MatchingPartners from './pages/MatchingPartners';
 import Messenger from './pages/Messenger';
 
 import OtherUserProfile from './pages/OtherUserProfile';
+import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const { currentUser } = useAuth();
@@ -103,6 +104,9 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+
         <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>

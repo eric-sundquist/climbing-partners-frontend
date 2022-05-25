@@ -117,7 +117,6 @@ export default function SignUp() {
             </Grid>
             <LoadingButton
               loading={isLoading}
-              loadingPosition="start"
               type="submit"
               fullWidth
               variant="contained"

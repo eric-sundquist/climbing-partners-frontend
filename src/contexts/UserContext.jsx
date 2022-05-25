@@ -3,27 +3,43 @@ import { useAuth } from './AuthContext';
 
 const UserContext = createContext();
 
+/**
+ * For acessing current context values.
+ *
+ * @returns {object} -  Current context value, as given by the UserProvider context provider.
+ */
 export function useUser() {
   return useContext(UserContext);
 }
-
+/**
+ * Provides userData context (state) to its children.
+ *
+ * @param {object} children - the child react components.
+ * @returns {object} - The child react comonents wrapped with the context provider.
+ */
 export function UserProvider({ children }) {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState('');
 
   /**
-   * Fetches user data from API.
+   * Fetches data from API.
    *
    * @param {String} route - The route to send the request to.
+   * @param {String} method - Method for the request
+   * @param {object} body - request body. If no value passed body is not sent witht he request.
    * @returns {Promise} JSON response from server.
    */
-  const fetchUser = async (route) => {
+  const fetchFromApi = async (route, method, body = false) => {
     const token = await currentUser.getIdToken();
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
+      method: method,
       headers: {
         authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
       },
+      ...(body && { body: JSON.stringify(body) }),
     });
+
     if (!res.ok) {
       // Handle errors... Maybe alert flash
       console.log(res.status);
@@ -38,7 +54,7 @@ export function UserProvider({ children }) {
   useEffect(() => {
     if (currentUser) {
       const getUserData = async () => {
-        const userDataFromApi = await fetchUser(`/users/${currentUser.uid}`);
+        const userDataFromApi = await fetchFromApi(`/users/${currentUser.uid}`, 'GET');
         setUserData(userDataFromApi);
       };
       console.log('fetching user data');
@@ -49,34 +65,16 @@ export function UserProvider({ children }) {
   /**
    * Updates user on server.
    *
-   * @param {String} route - The route to send the request to.
    * @param {Object} updatedUserProfile - updated user.
-   * @returns {Promise} JSON response from server.
    */
   const updateUserProfile = async (updatedUserProfile) => {
-    console.log('FETCHING EDIT USER');
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/profile`,
-      {
-        method: 'PUT',
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(updatedUserProfile),
-      }
+    const profileData = await fetchFromApi(
+      `/users/${currentUser.uid}/profile`,
+      'PUT',
+      updatedUserProfile
     );
-    if (!res.ok) {
-      // Handle errors... Maybe alert flash
-      console.log(res.status);
-      console.log(res.statusText);
-    }
-
-    const profileData = await res.json();
 
     setUserData((prev) => {
-      console.log(profileData);
       // eslint-disable-next-line prefer-const
       let { profile, ...rest } = prev;
       profile = profileData;
@@ -84,29 +82,14 @@ export function UserProvider({ children }) {
     });
   };
 
+  /**
+   * Creates a new partner ad for the current user.
+   *
+   * @param {object} partnerAdData -  Partner ad data to add.
+   */
   const postPartnerAd = async (partnerAdData) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/partner-ad`,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify(partnerAdData),
-      }
-    );
+    const ad = await fetchFromApi(`/users/${currentUser.uid}/partner-ad`, 'POST', partnerAdData);
 
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-    }
-    const ad = await res.json();
-    // Update state
     setUserData((prev) => {
       const { ads, ...rest } = prev;
       ads.push(ad);
@@ -114,24 +97,13 @@ export function UserProvider({ children }) {
     });
   };
 
+  /**
+   * Delete an ad for the current user.
+   *
+   * @param {String} adId - Id for ad to remove.
+   */
   const deleteAd = async (adId) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/partner-ad/${adId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-    }
+    await fetchFromApi(`/users/${currentUser.uid}/partner-ad/${adId}`, 'DELETE');
 
     setUserData((prev) => {
       // eslint-disable-next-line prefer-const
@@ -141,66 +113,44 @@ export function UserProvider({ children }) {
     });
   };
 
+  /**
+   * Searches ad database for matching partners by date and location.
+   *
+   * @param {String} date - date to search for.
+   * @param {String} location - location to search for.
+   * @returns {object[]} - matching partners.
+   */
   const searchMatchingPartners = async (date, location) => {
-    const token = await currentUser.getIdToken();
-    const route = `/partner-ads/filter?location=${location}&date=${date}`;
-    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
-      headers: {
-        authorization: `Bearer ${token}`,
-      },
+    const mathchingPartners = await fetchFromApi(
+      `/partner-ads/filter?location=${location}&date=${date}`,
+      'GET'
+    );
+    return mathchingPartners.filter((ad) => ad.owner.uid !== userData.uid);
+  };
+
+  /**
+   * Sends an climbing invite to a user.
+   *
+   * @param {String} targetUserId - user id to send invite to.
+   * @param {String} adId - target user's ad id.
+   * @param {String} currentUserAdId - current user's ad Id.
+   */
+  const sendInvite = (targetUserId, adId, currentUserAdId) => {
+    fetchFromApi(`/users/${targetUserId}/invites`, 'POST', {
+      fromUserId: userData.id,
+      adId: adId,
+      currentUserAdId: currentUserAdId,
     });
-    if (!res.ok) {
-      // Handle errors... Maybe alert flash
-      console.log(res.status);
-      console.log(res);
-    }
-
-    return res.json();
   };
 
-  const sendInvite = async (targetUserId, adId, searcherAdId) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${targetUserId}/invites`,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ fromUserId: userData.id, adId: adId, searcherAdId: searcherAdId }),
-      }
-    );
-
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-    }
-  };
-
+  /**
+   * Deletes an invite.
+   *
+   * @param {String} inviteId - id of the invite to delete.
+   */
   const deleteInvite = async (inviteId) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/invites/${inviteId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await fetchFromApi(`/users/${currentUser.uid}/invites/${inviteId}`, 'DELETE');
 
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-      throw new Error(res.status);
-    }
     setUserData((prev) => {
       // eslint-disable-next-line prefer-const
       let { invites, ...rest } = prev;
@@ -210,33 +160,21 @@ export function UserProvider({ children }) {
     });
   };
 
+  /**
+   * Accepts an invite.
+   *
+   * @param {String} inviteId - Id of invite that is accepted.
+   */
   const acceptInvite = async (inviteId) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(
-      `${process.env.REACT_APP_CP_APP_API_URL}/users/${currentUser.uid}/sessions`,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({ inviteId: inviteId }),
-      }
-    );
+    await fetchFromApi(`/users/${currentUser.uid}/sessions`, 'POST', { inviteId: inviteId });
 
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-      throw new Error(res.status);
-    }
-    // update userData
-    const user = await fetchUser(`/users/${currentUser.uid}`);
+    const user = await fetchFromApi(`/users/${currentUser.uid}`, 'GET');
     setUserData(user);
   };
 
+  /**
+   * Clears the user data state. Used for example on logout.
+   */
   const clearUserData = () => {
     setUserData(null);
   };

@@ -11,14 +11,12 @@ import { useUser } from '../contexts/UserContext';
 
 function MatchingPartners() {
   const { date, location, adId } = useLocation().state;
-  const { userData, searchMatchingPartners } = useUser();
+  const { searchMatchingPartners } = useUser();
   const [matched, setMatched] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const getMatches = async () => {
-    const mathchingPartners = await searchMatchingPartners(date, location);
-
-    setMatched(mathchingPartners.filter((ad) => ad.owner.uid !== userData.uid));
+    setMatched(await searchMatchingPartners(date, location));
     setIsLoading(false);
   };
 
@@ -55,7 +53,7 @@ function MatchingPartners() {
               disciplines={ad.disciplines}
               equipment={ad.equipment}
               transport={ad.transport}
-              searcherAdId={adId}
+              currentUserAdId={adId}
             />
           ))}
         </Box>

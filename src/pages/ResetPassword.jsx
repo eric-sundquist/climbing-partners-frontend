@@ -79,7 +79,6 @@ export default function ResetPassword() {
             />
             <LoadingButton
               loading={isLoading}
-              loadingPosition="start"
               type="submit"
               fullWidth
               variant="contained"
