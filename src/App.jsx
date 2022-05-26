@@ -13,18 +13,12 @@ import AnonOnlyRoute from './components/AnonOnlyRoute';
 import Profile from './pages/Profile';
 import MatchingPartners from './pages/MatchingPartners';
 import Messenger from './pages/Messenger';
-
 import OtherUserProfile from './pages/OtherUserProfile';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
 function App() {
   const { currentUser } = useAuth();
   const { userData } = useUser();
-
-  console.log('USER:');
-  console.log(currentUser);
-  console.log('USER-DATA:');
-  console.log(userData);
 
   return (
     <Routes>

@@ -38,7 +38,7 @@ function Chat({ chat }) {
     };
 
     connectSocket();
-  }, []);
+  }, [currentUser]);
 
   useEffect(() => {
     if (incomingMessage && chat?.users.some((user) => user.uid === incomingMessage.fromUser)) {
