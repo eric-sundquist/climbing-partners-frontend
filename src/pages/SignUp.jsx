@@ -50,7 +50,7 @@ export default function SignUp() {
       }
       await res.json();
 
-      navigate('/', { replace: true });
+      navigate('/profile', { replace: true });
     } catch (e) {
       if (e.code === 'auth/weak-password') {
         setError('Password should be at least 6 characters.');

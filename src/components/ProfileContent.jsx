@@ -20,7 +20,7 @@ function ProfileContent({ isEditing, toggleEdit }) {
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 60, height: 60 }} alt={name} />
       <Typography component="h1" variant="h3">
-        {name || 'Your name'}
+        {name || 'Please update your profile'}
       </Typography>
       <Box maxWidth="sm">
         <Typography variant="body1" marginTop={5} gutterBottom>
