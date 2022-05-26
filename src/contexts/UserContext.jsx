@@ -37,7 +37,7 @@ export function UserProvider({ children }) {
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
       method: method,
       headers: {
-        authorization: `Bear ${token}`,
+        authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
       },
       ...(body && { body: JSON.stringify(body) }),
