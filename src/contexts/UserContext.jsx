@@ -1,4 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import { useErrorHandler } from 'react-error-boundary';
+import Error from '../components/ErrorFallback';
 import { useAuth } from './AuthContext';
 
 const UserContext = createContext();
@@ -20,6 +22,7 @@ export function useUser() {
 export function UserProvider({ children }) {
   const { currentUser } = useAuth();
   const [userData, setUserData] = useState('');
+  const handleError = useErrorHandler();
 
   /**
    * Fetches data from API.
@@ -34,16 +37,14 @@ export function UserProvider({ children }) {
     const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}${route}`, {
       method: method,
       headers: {
-        authorization: `Bearer ${token}`,
+        authorization: `Bear ${token}`,
         'Content-type': 'application/json',
       },
       ...(body && { body: JSON.stringify(body) }),
     });
 
     if (!res.ok) {
-      // Handle errors... Maybe alert flash
-      console.log(res.status);
-      console.log(res.statusText);
+      handleError(`${res.status} - ${res.statusText}`);
     }
     return res.json();
   };
@@ -57,7 +58,6 @@ export function UserProvider({ children }) {
         const userDataFromApi = await fetchFromApi(`/users/${currentUser.uid}`, 'GET');
         setUserData(userDataFromApi);
       };
-      console.log('fetching user data');
       getUserData();
     }
   }, [currentUser]);
