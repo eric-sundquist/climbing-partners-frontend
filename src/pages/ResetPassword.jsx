@@ -10,10 +10,7 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../contexts/AuthContext';
-
-const theme = createTheme();
 
 export default function ResetPassword() {
   const emailRef = useRef();
@@ -45,59 +42,57 @@ export default function ResetPassword() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Reset Password
-          </Typography>
-          {error && <Alert severity="error">{error}</Alert>}
-          {info && <Alert severity="info">{info}</Alert>}
+    <Container component="main" maxWidth="xs">
+      <CssBaseline />
+      <Box
+        sx={{
+          marginTop: 8,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Reset Password
+        </Typography>
+        {error && <Alert severity="error">{error}</Alert>}
+        {info && <Alert severity="info">{info}</Alert>}
 
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              inputRef={emailRef}
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <LoadingButton
-              loading={isLoading}
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Reset Password
-            </LoadingButton>
-            <Button
-              component={RouterLink}
-              to="/login"
-              fullWidth
-              variant="outlined"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Log in
-            </Button>
-          </Box>
+        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <TextField
+            inputRef={emailRef}
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+          />
+          <LoadingButton
+            loading={isLoading}
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Reset Password
+          </LoadingButton>
+          <Button
+            component={RouterLink}
+            to="/login"
+            fullWidth
+            variant="outlined"
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Log in
+          </Button>
         </Box>
-      </Container>
-    </ThemeProvider>
+      </Box>
+    </Container>
   );
 }

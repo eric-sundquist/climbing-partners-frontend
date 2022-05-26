@@ -1,6 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { useErrorHandler } from 'react-error-boundary';
-import Error from '../components/ErrorFallback';
 import { useAuth } from './AuthContext';
 
 const UserContext = createContext();
