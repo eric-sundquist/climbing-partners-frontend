@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext';
 const UserContext = createContext();
 
 /**
- * For acessing current context values.
+ * Custom React Hook for acessing user context values and functions.
  *
  * @returns {object} -  Current context value, as given by the UserProvider context provider.
  */
@@ -189,6 +189,7 @@ export function UserProvider({ children }) {
     deleteInvite,
     acceptInvite,
     clearUserData,
+    fetchFromApi,
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

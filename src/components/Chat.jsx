@@ -10,7 +10,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 function Chat({ chat }) {
   const { currentUser } = useAuth();
-  const { userData } = useUser();
+  const { userData, fetchFromApi } = useUser();
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [incomingMessage, setIncomingMessage] = useState(null);
@@ -48,22 +48,10 @@ function Chat({ chat }) {
 
   useEffect(() => {
     const getMessages = async () => {
-      const token = await currentUser.getIdToken();
-      const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/messages/${chat?.id}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (!res.ok) {
-        // THROW ERROR, Pick up in error boudary???
-        console.log(res.status);
-        console.log(res.statusText);
-        console.log(await res.json());
-        throw new Error(res.status);
-      }
-
-      const messagesData = await res.json();
+      const messagesData = await fetchFromApi(
+        `${process.env.REACT_APP_CP_APP_API_URL}/messages/${chat?.id}`,
+        'GET'
+      );
       setMessages(messagesData);
     };
     getMessages();
@@ -77,25 +65,11 @@ function Chat({ chat }) {
       text: newMessage,
     };
 
-    const token = await currentUser.getIdToken();
-    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/messages`, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify(message),
-    });
-
-    if (!res.ok) {
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-      throw new Error(res.status);
-    }
-
-    const messageData = await res.json();
+    const messageData = await fetchFromApi(
+      `${process.env.REACT_APP_CP_APP_API_URL}/messages`,
+      'POST',
+      message
+    );
     setMessages((prev) => [...prev, messageData]);
     setNewMessage('');
 
