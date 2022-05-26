@@ -48,10 +48,7 @@ function Chat({ chat }) {
 
   useEffect(() => {
     const getMessages = async () => {
-      const messagesData = await fetchFromApi(
-        `${process.env.REACT_APP_CP_APP_API_URL}/messages/${chat?.id}`,
-        'GET'
-      );
+      const messagesData = await fetchFromApi(`/messages/${chat?.id}`, 'GET');
       setMessages(messagesData);
     };
     getMessages();
@@ -65,11 +62,7 @@ function Chat({ chat }) {
       text: newMessage,
     };
 
-    const messageData = await fetchFromApi(
-      `${process.env.REACT_APP_CP_APP_API_URL}/messages`,
-      'POST',
-      message
-    );
+    const messageData = await fetchFromApi('/messages', 'POST', message);
     setMessages((prev) => [...prev, messageData]);
     setNewMessage('');
 
