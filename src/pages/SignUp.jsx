@@ -6,17 +6,20 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import FormLabel from '@mui/material/FormLabel';
 import { useErrorHandler } from 'react-error-boundary';
 import { useAuth } from '../contexts/AuthContext';
 
 export default function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const acceptCheckedRef = useRef();
   const { createUser } = useAuth();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +30,11 @@ export default function SignUp() {
     event.preventDefault();
     if (!emailRef.current.value || !passwordRef.current.value) {
       setError('Username and/or password is missing');
+      return;
+    }
+
+    if (!acceptCheckedRef.current.checked) {
+      setError('You must accept our Privacy Policy to use our application');
       return;
     }
 
@@ -86,49 +94,57 @@ export default function SignUp() {
           Sign up
         </Typography>
         {error && <Alert severity="error">{error}</Alert>}
-        <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                inputRef={emailRef}
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoFocus
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                inputRef={passwordRef}
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="new-password"
-              />
-            </Grid>
-          </Grid>
-          <LoadingButton
-            loading={isLoading}
-            type="submit"
+        <Box
+          component="form"
+          noValidate
+          onSubmit={handleSubmit}
+          sx={{
+            mt: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 3,
+            width: '100%',
+            alignItems: 'center',
+          }}
+        >
+          <TextField
+            inputRef={emailRef}
+            required
             fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
+            id="email"
+            label="Email Address"
+            name="email"
+            autoFocus
+            autoComplete="email"
+          />
+          <TextField
+            inputRef={passwordRef}
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+          />
+          <FormControlLabel
+            control={<Checkbox inputRef={acceptCheckedRef} />}
+            label={
+              <FormLabel>
+                I have read and accept Climbing Partners{' '}
+                <Link component={RouterLink} to="/privacy-policy">
+                  Privacy Policy
+                </Link>
+              </FormLabel>
+            }
+          />
+
+          <LoadingButton loading={isLoading} type="submit" fullWidth variant="contained">
             Sign Up
           </LoadingButton>
-          <Grid container justifyContent="center">
-            <Grid item>
-              <Link component={RouterLink} to="/login" variant="body2">
-                Already have an account? Log in
-              </Link>
-            </Grid>
-          </Grid>
+          <Link component={RouterLink} to="/login" variant="body2">
+            Already have an account? Log in
+          </Link>
         </Box>
       </Box>
     </Container>
