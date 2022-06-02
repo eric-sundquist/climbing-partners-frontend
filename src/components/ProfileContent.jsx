@@ -19,11 +19,11 @@ function ProfileContent({ isEditing, toggleEdit }) {
       }}
     >
       <Avatar sx={{ m: 1, bgcolor: 'secondary.main', width: 60, height: 60 }} alt={name} />
-      <Typography component="h1" variant="h3">
+      <Typography data-testid="name" component="h1" variant="h3">
         {name || 'Please update your profile'}
       </Typography>
       <Box maxWidth="sm">
-        <Typography variant="body1" marginTop={5} gutterBottom>
+        <Typography data-testid="description" variant="body1" marginTop={5} gutterBottom>
           {description || 'Tell us some more about yourself. Whats your favorite climbs?'}
         </Typography>
       </Box>

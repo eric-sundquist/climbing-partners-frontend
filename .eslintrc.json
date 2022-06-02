@@ -5,10 +5,13 @@
   "extends": [
       "airbnb",
       "prettier",
-      "plugin:react/jsx-runtime"
+      "plugin:react/jsx-runtime",
+      "plugin:jest/recommended",
+      "plugin:jest/style"
   ],
   "plugins": [
-      "prettier"
+      "prettier",
+      "jest"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",

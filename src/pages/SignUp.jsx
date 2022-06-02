@@ -2,7 +2,6 @@ import { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import LoadingButton from '@mui/lab/LoadingButton';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
@@ -67,8 +66,6 @@ export default function SignUp() {
       } else if (e.code === 'auth/email-already-in-use') {
         setError('Email is aldready in use.');
       } else {
-        // eslint-disable-next-line no-console
-        console.log(e.message);
         setError('Sign up failed.');
       }
     }
@@ -78,7 +75,6 @@ export default function SignUp() {
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
