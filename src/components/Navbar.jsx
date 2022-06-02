@@ -12,6 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { useAuth } from '../contexts/AuthContext';
 import { useUser } from '../contexts/UserContext';
 
@@ -20,6 +21,7 @@ export default function Navbar() {
   const { userData, clearUserData } = useUser();
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const screenBiggerThan450px = useMediaQuery('(min-width:450px)');
 
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
@@ -63,11 +65,13 @@ export default function Navbar() {
 
           {currentUser && (
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Home" sx={{ marginRight: 1 }}>
-                <IconButton aria-label="home" component={RouterLink} to="/">
-                  <HomeIcon sx={{ color: 'white' }} />
-                </IconButton>
-              </Tooltip>
+              {screenBiggerThan450px && (
+                <Tooltip title="Home" sx={{ marginRight: 1 }}>
+                  <IconButton aria-label="home" component={RouterLink} to="/">
+                    <HomeIcon sx={{ color: 'white' }} />
+                  </IconButton>
+                </Tooltip>
+              )}
               <Tooltip title="Chat" sx={{ marginRight: 2 }}>
                 <IconButton aria-label="chat" component={RouterLink} to="/chat">
                   <MessageIcon sx={{ color: 'white' }} />
