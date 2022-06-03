@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import IconButton from '@mui/material/IconButton';
@@ -11,6 +11,16 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Discipline from './Discipline';
 
+/**
+ * React function component. Renders a set of Disciplines and form module for adding new discipline.
+ *
+ * @param {object} props - Props object for component.
+ * @param {boolean} props.isEditing - is the card editable.
+ * @param {Function} props.removeDiscipline - function sendt down by parent to remove discipline.
+ * @param {object[]} props.disciplines - disciplines to render.
+ * @param {Function} props.addDiscipline - function passed down to add a new discipline.
+ * @returns {ReactElement} - the disciplines container.
+ */
 function Disciplines({ isEditing, disciplines, addDiscipline, removeDiscipline }) {
   const [open, setOpen] = useState(false);
   const [newGrade, setNewGrade] = useState('');
@@ -20,6 +30,9 @@ function Disciplines({ isEditing, disciplines, addDiscipline, removeDiscipline }
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  /**
+   * Handle new discipline submit.
+   */
   const handleAdd = () => {
     if (newGrade && newDiscipline) {
       addDiscipline(newDiscipline, newGrade);

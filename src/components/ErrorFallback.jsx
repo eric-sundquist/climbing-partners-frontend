@@ -1,6 +1,12 @@
+import { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
+/**
+ * React function component. Renders error fallback.
+ *
+ * @returns {ReactElement} - error fallback component.
+ */
 function ErrorFallback() {
   return (
     <Container

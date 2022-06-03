@@ -1,8 +1,14 @@
+import { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Invite from './Invite';
 import { useUser } from '../contexts/UserContext';
 
+/**
+ * React function component. Renders container for invite cards.
+ *
+ * @returns {ReactElement} - container component.
+ */
 function Invites() {
   const { userData } = useUser();
   const { invites } = userData;

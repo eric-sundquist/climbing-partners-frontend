@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, ReactElement } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -19,7 +19,6 @@ import { useUser } from '../contexts/UserContext';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -29,17 +28,39 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+/**
+ * React function component. Renders invite card.
+ *
+ * @param {object} props - Props object for component.
+ * @param {string} props.id - invite id.
+ * @param {object} props.date - date of ad invite is related to.
+ * @param {string} props.location - location of ad incite is related to.
+ * @param {string} props.description - description of ad incite is related to.
+ * @param {string} props.name - name of user who sent invite.
+ * @param {object} props.profile - profile of user who sent invite.
+ * @returns {ReactElement} - invite card component.
+ */
 function Invite({ id, date, location, description, name, profile }) {
   const { deleteInvite, acceptInvite } = useUser();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  /**
+   * Toggle card expansion.
+   */
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  /**
+   * Handles user accept of invite.
+   */
   const handleAcceptInvite = () => {
     acceptInvite(id);
   };
 
+  /**
+   * Handles user decline of invite.
+   */
   const handleDeclineInvite = () => {
     deleteInvite(id);
   };

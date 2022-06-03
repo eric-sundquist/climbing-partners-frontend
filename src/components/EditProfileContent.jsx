@@ -1,12 +1,20 @@
+import { ReactElement, useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { useState, useRef } from 'react';
 import { useUser } from '../contexts/UserContext';
 import Disciplines from './Disciplines';
 
+/**
+ * React function component. Renders form for editing profile content.
+ *
+ * @param {object} props - Props object for component.
+ * @param {boolean} props.isEditing - is the profile editable.
+ * @param {Function} props.toggleEdit - function for ending edit state and close component.
+ * @returns {ReactElement} - edit profile form component.
+ */
 function EditProfileContent({ isEditing, toggleEdit }) {
   const { userData, updateUserProfile } = useUser();
   const { name, description, disciplines } = userData.profile;
@@ -15,6 +23,11 @@ function EditProfileContent({ isEditing, toggleEdit }) {
   const descriptionRef = useRef();
   const [updatedDisciplines, setUpdatedDisciplines] = useState(disciplines);
 
+  /**
+   * Handles form submit.
+   *
+   * @param {object} event - form submit event.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
     updateUserProfile({
@@ -25,6 +38,12 @@ function EditProfileContent({ isEditing, toggleEdit }) {
     toggleEdit();
   };
 
+  /**
+   * Adds a new discipline.
+   *
+   * @param {string} newDiscipline - climbing discipline.
+   * @param {string} newGrade - grade for discipline.
+   */
   const addDiscipline = (newDiscipline, newGrade) => {
     setUpdatedDisciplines((prev) => {
       const newDis = {
@@ -35,6 +54,11 @@ function EditProfileContent({ isEditing, toggleEdit }) {
     });
   };
 
+  /**
+   * Removes a discipline from the profile.
+   *
+   * @param {number} index - index of discipline to remove.
+   */
   const removeDiscipline = (index) => {
     setUpdatedDisciplines((prev) => {
       prev.splice(index, 1);
