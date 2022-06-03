@@ -1,9 +1,15 @@
+import { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Session from './Session';
 import { useUser } from '../contexts/UserContext';
 
+/**
+ * React function component. Renders upcoming session components.
+ *
+ * @returns {ReactElement} - container where session components are renderered.
+ */
 function Sessions() {
   const { sessions } = useUser().userData;
 

@@ -10,7 +10,7 @@ import Loading from './Loading';
  *
  * @param {object} props - Props object for component.
  * @param {object} props.children - the children the component should render.
- * @returns {ReactElement} - Children.
+ * @returns {ReactElement} - Children components.
  */
 function ProtectedRoute({ children }) {
   const { currentUser } = useAuth();

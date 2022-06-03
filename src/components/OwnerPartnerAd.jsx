@@ -1,5 +1,4 @@
 import { useState, ReactElement } from 'react';
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import Box from '@mui/material/Box';
@@ -20,18 +19,7 @@ import parseISO from 'date-fns/parseISO';
 import { Link as RouterLink } from 'react-router-dom';
 import Disciplines from './Disciplines';
 import { useUser } from '../contexts/UserContext';
-
-// Expand more button styling
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import ExpandMore from './ExpandMore';
 
 /**
  * React function component. Renders partner ad created by current user.

@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { useState, ReactElement } from 'react';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -14,30 +13,25 @@ import Tooltip from '@mui/material/Tooltip';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { Link as RouterLink } from 'react-router-dom';
-
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+import ExpandMore from './ExpandMore';
 
 /**
+ * React function component. Renders user profile.
  *
- * @param root0
- * @param root0.date
- * @param root0.location
- * @param root0.description
- * @param root0.withUser
+ * @param {object} props - Props object for component.
+ * @param {string} props.date - date of the climbing session.
+ * @param {string} props.location - location of the climbing session.
+ * @param {string} props.description - description of the climbing session.
+ * @param {object} props.withUser - user to climb with.
+ * @returns {ReactElement} - profile component.
  */
 function Session({ date, location, description, withUser }) {
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const { profile } = withUser;
 
+  /**
+   * Toggle expand more.
+   */
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
