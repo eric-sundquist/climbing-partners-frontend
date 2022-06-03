@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, ReactElement } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import LoadingButton from '@mui/lab/LoadingButton';
@@ -16,9 +16,9 @@ import { useErrorHandler } from 'react-error-boundary';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
- * React functional component. Renders reset password page.
+ * React functional component. Renders the sign up page.
  *
- * @returns {ReactElement} - the reset password page component.
+ * @returns {ReactElement} - the sign up page component.
  */
 function SignUp() {
   const emailRef = useRef();
@@ -30,6 +30,12 @@ function SignUp() {
   const navigate = useNavigate();
   const handleError = useErrorHandler();
 
+  /**
+   * Handles sign up form submit.
+   *
+   * @param {object} event - the form submit event.
+   * @returns {undefined}  - does not return anything.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!emailRef.current.value || !passwordRef.current.value) {
