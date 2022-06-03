@@ -1,9 +1,15 @@
+import { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import { Outlet, Link as RouterLink } from 'react-router-dom';
 
 import Link from '@mui/material/Link';
 import Navbar from './Navbar';
 
+/**
+ * React function component. Renders the page layout.
+ *
+ * @returns {ReactElement} - page layout.
+ */
 function Layout() {
   return (
     <Box

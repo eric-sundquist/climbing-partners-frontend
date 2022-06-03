@@ -11,8 +11,8 @@ import Disciplines from './Disciplines';
  * React function component. Renders form for editing profile content.
  *
  * @param {object} props - Props object for component.
- * @param {boolean} props.isEditing - is the profile editable.
- * @param {Function} props.toggleEdit - function for ending edit state and close component.
+ * @param {boolean} props.isEditing - is the profile in edit mode.
+ * @param {Function} props.toggleEdit - function for toggling edit mode.
  * @returns {ReactElement} - edit profile form component.
  */
 function EditProfileContent({ isEditing, toggleEdit }) {

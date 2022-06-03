@@ -17,7 +17,6 @@ import { Link as RouterLink } from 'react-router-dom';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -27,6 +26,14 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+/**
+ *
+ * @param root0
+ * @param root0.date
+ * @param root0.location
+ * @param root0.description
+ * @param root0.withUser
+ */
 function Session({ date, location, description, withUser }) {
   const [expanded, setExpanded] = React.useState(false);
   const { profile } = withUser;

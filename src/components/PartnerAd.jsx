@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, ReactElement } from 'react';
 import Alert from '@mui/material/Alert';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -15,7 +15,19 @@ import Tooltip from '@mui/material/Tooltip';
 import Disciplines from './Disciplines';
 
 import { useUser } from '../contexts/UserContext';
-
+/**
+ * React function component. Renders partner ad created by other user.
+ *
+ * @param {object} props - Props object for component.
+ * @param {string} props.id - Ad id.
+ * @param {string} props.description - description of ad.
+ * @param {object[]} props.disciplines - Disciplines choosen for ad.
+ * @param {boolean} props.equipment - user has equipment or not.
+ * @param {boolean} props.transport - user har transport or not.
+ * @param {object} props.owner - owner of ad.
+ * @param {string} props.currentUserAdId - ad id of the current users ad that matched with this ad.
+ * @returns {ReactElement} - partner ad component.
+ */
 function PartnerAd({ id, description, disciplines, equipment, transport, owner, currentUserAdId }) {
   const { sendInvite } = useUser();
   const [isInvBtnDisabled, setIsInvBtnDisabled] = useState(false);

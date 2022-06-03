@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, ReactElement } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
@@ -19,12 +19,11 @@ import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { Link as RouterLink } from 'react-router-dom';
 import Disciplines from './Disciplines';
-
 import { useUser } from '../contexts/UserContext';
 
+// Expand more button styling
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
-  // eslint-disable-next-line react/jsx-props-no-spreading
   return <IconButton {...other} />;
 })(({ theme, expand }) => ({
   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
@@ -34,9 +33,26 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
+/**
+ * React function component. Renders partner ad created by current user.
+ *
+ * @param {object} props - Props object for component.
+ * @param {string} props.id - Ad id.
+ * @param {object} props.date - date of ad.
+ * @param {string} props.location - location of ad.
+ * @param {string} props.description - description of ad.
+ * @param {object[]} props.disciplines - Disciplines choosen for ad.
+ * @param {boolean} props.equipment - user has equipment or not.
+ * @param {boolean} props.transport - user har transport or not.
+ * @returns {ReactElement} - partner ad component.
+ */
 function OwnerPartnerAd({ date, location, description, disciplines, equipment, transport, id }) {
   const { deleteAd } = useUser();
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  /**
+   * Toggles expand more button.
+   */
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };

@@ -148,7 +148,6 @@ function CreatePartnerAd() {
                   onChange={(newDate) => {
                     setDate(newDate);
                   }}
-                  // eslint-disable-next-line react/jsx-props-no-spreading
                   renderInput={(params) => <TextField {...params} />}
                 />
               </LocalizationProvider>

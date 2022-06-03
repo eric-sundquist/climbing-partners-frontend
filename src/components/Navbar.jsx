@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ReactElement, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,32 +13,49 @@ import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { useErrorHandler } from 'react-error-boundary';
 import { useAuth } from '../contexts/AuthContext';
 import { useUser } from '../contexts/UserContext';
 
-export default function Navbar() {
+/**
+ * React function component. Renders navbar.
+ *
+ * @returns {ReactElement} - page navbar component.
+ */
+function Navbar() {
   const { currentUser, logoutUser } = useAuth();
   const { userData, clearUserData } = useUser();
   const navigate = useNavigate();
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const handleError = useErrorHandler();
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const screenBiggerThan450px = useMediaQuery('(min-width:450px)');
 
+  /**
+   * Handle open user menu.
+   *
+   * @param {object} event - click event.
+   */
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
+  /**
+   * Handle close user menu.
+   */
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
 
+  /**
+   * Handle logout.
+   */
   const handleLogOut = async () => {
     try {
       await logoutUser();
       clearUserData();
       navigate('/login');
     } catch (er) {
-      // handle error alert globaly??
-      // setError(`Failed to log out! ${er.message}`);
+      handleError(er.message);
     }
   };
 
@@ -116,3 +133,5 @@ export default function Navbar() {
     </Box>
   );
 }
+
+export default Navbar;

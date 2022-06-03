@@ -34,8 +34,8 @@ const ExpandMore = styled((props) => {
  * @param {object} props - Props object for component.
  * @param {string} props.id - invite id.
  * @param {object} props.date - date of ad invite is related to.
- * @param {string} props.location - location of ad incite is related to.
- * @param {string} props.description - description of ad incite is related to.
+ * @param {string} props.location - location of ad invite is related to.
+ * @param {string} props.description - description of ad invite is related to.
  * @param {string} props.name - name of user who sent invite.
  * @param {object} props.profile - profile of user who sent invite.
  * @returns {ReactElement} - invite card component.

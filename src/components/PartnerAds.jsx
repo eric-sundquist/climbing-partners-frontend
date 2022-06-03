@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -5,8 +6,20 @@ import CreatePartnerAd from './CreatePartnerAd';
 import OwnerPartnerAd from './OwnerPartnerAd';
 import { useUser } from '../contexts/UserContext';
 
+/**
+ * React function component. Renders container for displaying current users partner ads.
+ *
+ * @returns {ReactElement} - PartnerAds component.
+ */
 function PartnerAds() {
   const { userData } = useUser();
+
+  /**
+   * Compares date with todays and returns truthy value of date is in the past.
+   *
+   * @param {string} dateIsoString - date to compare.
+   * @returns {boolean} - Is date in the past? true/false
+   */
   const dateIsInThePast = (dateIsoString) => {
     const date = new Date(dateIsoString);
     const today = new Date();
