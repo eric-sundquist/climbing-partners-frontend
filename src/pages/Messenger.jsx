@@ -8,7 +8,6 @@ import UserChatCard from '../components/UserChatCard';
 import Chat from '../components/Chat';
 import Loading from '../components/Loading';
 import { useUser } from '../contexts/UserContext';
-import { useAuth } from '../contexts/AuthContext';
 
 /**
  * React functional component. Renders messenger page.
@@ -17,8 +16,7 @@ import { useAuth } from '../contexts/AuthContext';
  */
 function Messenger() {
   const [chats, setChats] = useState([]);
-  const { fetchFromApi } = useAuth();
-  const { userData } = useUser();
+  const { userData, fetchFromApi } = useUser();
   const routerState = useLocation().state;
   const [currentChat, setCurrentChat] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
