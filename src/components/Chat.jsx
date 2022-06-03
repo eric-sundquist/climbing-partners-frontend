@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
@@ -8,6 +8,13 @@ import ChatBubble from './ChatBubble';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
+/**
+ * React function component. Renders chat component.
+ *
+ * @param {object} props - Props object for component.
+ * @param {object} props.chat - the chat object.
+ * @returns {ReactElement} - Chat component.
+ */
 function Chat({ chat }) {
   const { currentUser } = useAuth();
   const { userData, fetchFromApi } = useUser();
@@ -17,6 +24,7 @@ function Chat({ chat }) {
   const socket = useRef();
   const scrollDownRef = useRef(null);
 
+  // Connect to websocket and set up docket listeners. Runs on first render or when currentUser context has changed.
   useEffect(() => {
     const connectSocket = async () => {
       const token = await currentUser.getIdToken();
@@ -36,16 +44,17 @@ function Chat({ chat }) {
 
       socket.current.emit('add-user', currentUser.uid);
     };
-
     connectSocket();
   }, [currentUser]);
 
+  // If socket recieves an incoming message and a chat with the sender of the incoming message is open -> update the message state with the new message.
   useEffect(() => {
     if (incomingMessage && chat?.users.some((user) => user.uid === incomingMessage.fromUser)) {
       setMessages((prev) => [...prev, incomingMessage]);
     }
   }, [incomingMessage, chat]);
 
+  // Fetch messages for the active chat.
   useEffect(() => {
     const getMessages = async () => {
       const messagesData = await fetchFromApi(`/messages/${chat?.id}`, 'GET');
@@ -54,6 +63,11 @@ function Chat({ chat }) {
     getMessages();
   }, [chat]);
 
+  /**
+   * Send a new message.
+   *
+   * @param {object} event - event triggered by pressing the send button.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
     const message = {
@@ -62,22 +76,30 @@ function Chat({ chat }) {
       text: newMessage,
     };
 
-    const messageData = await fetchFromApi('/messages', 'POST', message);
-    setMessages((prev) => [...prev, messageData]);
-    setNewMessage('');
-
+    // Send "send-message" event to socket
     const receivingUser = chat.users.find((user) => user.uid !== currentUser.uid);
     socket.current.emit('send-message', {
       senderUid: currentUser.uid,
       receiverUid: receivingUser.uid,
       text: newMessage,
     });
+
+    // Post message to server
+    const messageData = await fetchFromApi('/messages', 'POST', message);
+    setMessages((prev) => [...prev, messageData]);
+    setNewMessage('');
   };
 
+  /**
+   * Updates state of newMessage.
+   *
+   * @param {object} event - event triggered by changing value of textfield
+   */
   const handleChange = (event) => {
     setNewMessage(event.target.value);
   };
 
+  // Scrolls window to the bottom of the chat when messages state is changed.
   useEffect(() => {
     scrollDownRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);

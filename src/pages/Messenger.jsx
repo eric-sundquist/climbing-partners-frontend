@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactElement } from 'react';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -10,70 +10,55 @@ import Loading from '../components/Loading';
 import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
+/**
+ * React function component. Renders messenger page.
+ *
+ * @returns {ReactElement} - Messenger component
+ */
 function Messenger() {
   const [chats, setChats] = useState([]);
-  const { currentUser } = useAuth();
+  const { fetchFromApi } = useAuth();
   const { userData } = useUser();
   const routerState = useLocation().state;
   const [currentChat, setCurrentChat] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Creates a new chat.
+   *
+   * @param {string} withUserId - user id of the user to start chat with.
+   */
   const createChat = async (withUserId) => {
-    const token = await currentUser.getIdToken();
-    const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/chats`, {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({ fromUserId: userData.id, toUserId: withUserId }),
+    const newChatData = await fetchFromApi('/chats', 'POST', {
+      fromUserId: userData.id,
+      toUserId: withUserId,
     });
-
-    if (!res.ok) {
-      // TODO
-      // THROW ERROR, Pick up in error boudary???
-      console.log(res.status);
-      console.log(res.statusText);
-      console.log(await res.json());
-      throw new Error(res.status);
-    }
-    // set chats
-    const newChatData = await res.json();
 
     setChats((prev) => [...prev, newChatData]);
     setCurrentChat(newChatData);
   };
 
   useEffect(() => {
+    /**
+     * Fetches current user chats from API. If redirected to messenger page with routerState open that chat if existing else create a new chat with that user.
+     */
     const getChats = async () => {
-      const token = await currentUser.getIdToken();
-      const res = await fetch(`${process.env.REACT_APP_CP_APP_API_URL}/chats/${userData.id}`, {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      });
+      const chatData = await fetchFromApi(`/chats/${userData.id}`, 'GET');
 
-      if (!res.ok) {
-        // THROW ERROR, Pick up in error boudary???
-        console.log(res.status);
-        console.log(res.statusText);
-        console.log(await res.json());
-        throw new Error(res.status);
-      }
-
-      const chatData = await res.json();
       setChats(chatData);
 
-      // Open chat with this user if withUserId present
+      // Open chat with this user if routerState with userid present
       if (routerState) {
         const { withUserId } = routerState;
         const matchedChat = chatData
           .filter((chat) => chat.users.some((user) => user.id === withUserId))
           .pop();
+
+        // If no existing chat, create new...
         if (!matchedChat) {
-          // Create a chat with user
           createChat(withUserId);
         } else {
+          // ...else open found chat
           setCurrentChat(matchedChat);
         }
       }
@@ -82,12 +67,14 @@ function Messenger() {
     getChats();
   }, []);
 
+  /**
+   * Opens selected chat.
+   *
+   * @param {object} chat - chat to open.
+   */
   const handleOpenChat = (chat) => {
     setCurrentChat(chat);
   };
-
-  console.log('Before Render!');
-  console.log(chats);
 
   if (isLoading) {
     return <Loading />;
