@@ -1,3 +1,4 @@
+import { ReactElement, MutableRefObject } from 'react';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 
@@ -15,6 +16,16 @@ const otherMessageStyle = {
   alignSelf: 'flex-start',
 };
 
+/**
+ * React function component. Renders a chat bubble.
+ *
+ * @param {object} props - Props object for component.
+ * @param {string} props.text - Text to display.
+ * @param {string} props.fromUserUId - user id of text/message sender.
+ * @param {string} props.currentUserUId  - user id of current user.
+ * @param {MutableRefObject} props.refProp - referense for element in component.
+ * @returns {ReactElement} - Chat bubble component.
+ */
 function ChatBubble({ text, fromUserUId, currentUserUId, refProp }) {
   const isOwnMessage = fromUserUId === currentUserUId;
   return (

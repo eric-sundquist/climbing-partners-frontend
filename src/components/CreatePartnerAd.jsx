@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -32,6 +32,11 @@ const style = {
   minWidth: 350,
 };
 
+/**
+ * React function component. Renders create partner ad form module.
+ *
+ * @returns {ReactElement} - Add partner search button which open module.
+ */
 function CreatePartnerAd() {
   const { postPartnerAd } = useUser();
 
@@ -49,6 +54,12 @@ function CreatePartnerAd() {
   const locationRef = useRef();
   const descriptionRef = useRef();
 
+  /**
+   * Adds a discipline to the ad.
+   *
+   * @param {string} newDiscipline - discipline to add.
+   * @param {string} newGrade - grade of the discipline.
+   */
   const addDiscipline = (newDiscipline, newGrade) => {
     setDisciplines((prev) => {
       const newDis = {
@@ -59,6 +70,11 @@ function CreatePartnerAd() {
     });
   };
 
+  /**
+   * Removes a discipline.
+   *
+   * @param {number} index - index of discpline to remove.
+   */
   const removeDiscipline = (index) => {
     setDisciplines((prev) => {
       prev.splice(index, 1);
@@ -66,6 +82,9 @@ function CreatePartnerAd() {
     });
   };
 
+  /**
+   * Creates an ad.
+   */
   const postAd = async () => {
     const input = {
       date: date,
@@ -78,6 +97,11 @@ function CreatePartnerAd() {
     postPartnerAd(input);
   };
 
+  /**
+   * Handles form submit.
+   *
+   * @param {object} event - form submit event.
+   */
   const handleSubmit = (event) => {
     event.preventDefault();
 
