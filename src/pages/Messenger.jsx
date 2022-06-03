@@ -11,7 +11,7 @@ import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
- * React function component. Renders messenger page.
+ * React functional component. Renders messenger page.
  *
  * @returns {ReactElement} - Messenger component
  */

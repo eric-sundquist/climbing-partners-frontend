@@ -3,7 +3,7 @@ import IconButton from '@mui/material/IconButton';
 import { styled } from '@mui/material/styles';
 
 /**
- * React function component. Adds styling to nested expand more icon.
+ * React functional component. Adds styling to nested expand more icon.
  *
  * @param {object} props - Props object for component.
  * @returns {ReactElement} - expandmore icon component.

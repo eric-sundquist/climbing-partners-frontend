@@ -15,7 +15,8 @@ export function useUser() {
 /**
  * Provides userData context (state) to its children.
  *
- * @param {object} children - the child react components.
+ * @param {object} props - the props object.
+ * @param {object} props.children - the child react components.
  * @returns {object} - The child react comonents wrapped with the context provider.
  */
 export function UserProvider({ children }) {
@@ -26,8 +27,8 @@ export function UserProvider({ children }) {
   /**
    * Fetches data from API.
    *
-   * @param {String} route - The route to send the request to.
-   * @param {String} method - Method for the request
+   * @param {string} route - The route to send the request to.
+   * @param {string} method - Method for the request
    * @param {object} body - request body. If no value passed body is not sent witht he request.
    * @returns {Promise} JSON response from server.
    */
@@ -64,7 +65,7 @@ export function UserProvider({ children }) {
   /**
    * Updates user on server.
    *
-   * @param {Object} updatedUserProfile - updated user.
+   * @param {object} updatedUserProfile - updated user.
    */
   const updateUserProfile = async (updatedUserProfile) => {
     const profileData = await fetchFromApi(
@@ -99,7 +100,7 @@ export function UserProvider({ children }) {
   /**
    * Delete an ad for the current user.
    *
-   * @param {String} adId - Id for ad to remove.
+   * @param {string} adId - Id for ad to remove.
    */
   const deleteAd = async (adId) => {
     await fetchFromApi(`/users/${currentUser.uid}/partner-ad/${adId}`, 'DELETE');
@@ -115,8 +116,8 @@ export function UserProvider({ children }) {
   /**
    * Searches ad database for matching partners by date and location.
    *
-   * @param {String} date - date to search for.
-   * @param {String} location - location to search for.
+   * @param {string} date - date to search for.
+   * @param {string} location - location to search for.
    * @returns {object[]} - matching partners.
    */
   const searchMatchingPartners = async (date, location) => {
@@ -130,9 +131,9 @@ export function UserProvider({ children }) {
   /**
    * Sends an climbing invite to a user.
    *
-   * @param {String} targetUserId - user id to send invite to.
-   * @param {String} adId - target user's ad id.
-   * @param {String} currentUserAdId - current user's ad Id.
+   * @param {string} targetUserId - user id to send invite to.
+   * @param {string} adId - target user's ad id.
+   * @param {string} currentUserAdId - current user's ad Id.
    */
   const sendInvite = (targetUserId, adId, currentUserAdId) => {
     fetchFromApi(`/users/${targetUserId}/invites`, 'POST', {
@@ -145,7 +146,7 @@ export function UserProvider({ children }) {
   /**
    * Deletes an invite.
    *
-   * @param {String} inviteId - id of the invite to delete.
+   * @param {string} inviteId - id of the invite to delete.
    */
   const deleteInvite = async (inviteId) => {
     await fetchFromApi(`/users/${currentUser.uid}/invites/${inviteId}`, 'DELETE');
@@ -162,7 +163,7 @@ export function UserProvider({ children }) {
   /**
    * Accepts an invite.
    *
-   * @param {String} inviteId - Id of invite that is accepted.
+   * @param {string} inviteId - Id of invite that is accepted.
    */
   const acceptInvite = async (inviteId) => {
     await fetchFromApi(`/users/${currentUser.uid}/sessions`, 'POST', { inviteId: inviteId });

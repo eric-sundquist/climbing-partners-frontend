@@ -33,7 +33,7 @@ const style = {
 };
 
 /**
- * React function component. Renders create partner ad form module.
+ * React functional component. Renders create partner ad form module.
  *
  * @returns {ReactElement} - Add partner search button which open module.
  */

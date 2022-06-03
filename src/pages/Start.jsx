@@ -1,9 +1,15 @@
+import { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Link as RouterLink } from 'react-router-dom';
 import Typography from '@mui/material/Typography';
 
+/**
+ * React functional component. Renders the start page.
+ *
+ * @returns {ReactElement} - the start page component.
+ */
 function Start() {
   return (
     <Container component="main" maxWidth="md">

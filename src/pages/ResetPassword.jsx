@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, ReactElement } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import Button from '@mui/material/Button';
@@ -11,13 +11,23 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function ResetPassword() {
+/**
+ * React functional component. Renders reset password page.
+ *
+ * @returns {ReactElement} - the reset password page component.
+ */
+function ResetPassword() {
   const emailRef = useRef();
   const { resetPassword } = useAuth();
   const [error, setError] = useState('');
   const [info, setInfo] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  /**
+   * Handles submit of reset password form.
+   *
+   * @param {object} event - the form submit event.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -94,3 +104,4 @@ export default function ResetPassword() {
     </Container>
   );
 }
+export default ResetPassword;

@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, ReactElement } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Alert from '@mui/material/Alert';
 import TextField from '@mui/material/TextField';
@@ -11,7 +11,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function LogIn() {
+/**
+ * React functional component. Renders the login page.
+ *
+ * @returns {ReactElement} - login page component.
+ */
+function LogIn() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { loginUser } = useAuth();
@@ -19,6 +24,12 @@ export default function LogIn() {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  /**
+   * Handles submit of login form.
+   *
+   * @param {object} event - the form submit event.
+   * @returns {undefined} - does not return anything.
+   */
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -109,3 +120,5 @@ export default function LogIn() {
     </Container>
   );
 }
+
+export default LogIn;

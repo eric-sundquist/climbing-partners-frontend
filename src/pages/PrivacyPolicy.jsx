@@ -1,5 +1,11 @@
+import { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 
+/**
+ * React functional component. Renders a Privact Policy page.
+ *
+ * @returns {ReactElement} - the Privact Policy page component.
+ */
 function PrivacyPolicy() {
   return (
     <Container component="main" maxWidth="md">

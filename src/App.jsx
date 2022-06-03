@@ -1,3 +1,4 @@
+import ReactElement from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { useUser } from './contexts/UserContext';
@@ -16,6 +17,11 @@ import Messenger from './pages/Messenger';
 import OtherUserProfile from './pages/OtherUserProfile';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 
+/**
+ * React functional component. Renders the App.
+ *
+ * @returns {ReactElement} - the App component.
+ */
 function App() {
   const { currentUser } = useAuth();
   const { userData } = useUser();

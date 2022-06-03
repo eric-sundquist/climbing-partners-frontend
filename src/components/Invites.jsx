@@ -5,7 +5,7 @@ import Invite from './Invite';
 import { useUser } from '../contexts/UserContext';
 
 /**
- * React function component. Renders container for invite cards.
+ * React functional component. Renders container for invite cards.
  *
  * @returns {ReactElement} - container component.
  */

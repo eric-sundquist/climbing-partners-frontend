@@ -22,7 +22,7 @@ import { useUser } from '../contexts/UserContext';
 import ExpandMore from './ExpandMore';
 
 /**
- * React function component. Renders partner ad created by current user.
+ * React functional component. Renders partner ad created by current user.
  *
  * @param {object} props - Props object for component.
  * @param {string} props.id - Ad id.

@@ -18,7 +18,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useUser } from '../contexts/UserContext';
 
 /**
- * React function component. Renders navbar.
+ * React functional component. Renders navbar.
  *
  * @returns {ReactElement} - page navbar component.
  */

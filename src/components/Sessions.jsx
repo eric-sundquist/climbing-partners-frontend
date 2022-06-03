@@ -6,7 +6,7 @@ import Session from './Session';
 import { useUser } from '../contexts/UserContext';
 
 /**
- * React function component. Renders upcoming session components.
+ * React functional component. Renders upcoming session components.
  *
  * @returns {ReactElement} - container where session components are renderered.
  */

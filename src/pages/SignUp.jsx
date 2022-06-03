@@ -15,7 +15,12 @@ import FormLabel from '@mui/material/FormLabel';
 import { useErrorHandler } from 'react-error-boundary';
 import { useAuth } from '../contexts/AuthContext';
 
-export default function SignUp() {
+/**
+ * React functional component. Renders reset password page.
+ *
+ * @returns {ReactElement} - the reset password page component.
+ */
+function SignUp() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const acceptCheckedRef = useRef();
@@ -146,3 +151,4 @@ export default function SignUp() {
     </Container>
   );
 }
+export default SignUp;

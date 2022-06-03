@@ -3,7 +3,7 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
 /**
- * React function component. Renders error fallback.
+ * React functional component. Renders error fallback.
  *
  * @returns {ReactElement} - error fallback component.
  */

@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
 }));
 
 /**
- * React function component. Renders invite card.
+ * React functional component. Renders invite card.
  *
  * @param {object} props - Props object for component.
  * @param {string} props.id - invite id.

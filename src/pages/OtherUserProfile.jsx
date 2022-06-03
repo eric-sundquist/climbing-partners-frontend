@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
@@ -6,6 +7,11 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 import Disciplines from '../components/Disciplines';
 
+/**
+ * React functional component. Renders profile page of another user.
+ *
+ * @returns {ReactElement} - the profile page component.
+ */
 function OtherUserProfile() {
   const { user } = useLocation().state;
   const { name, disciplines, description } = user.profile;

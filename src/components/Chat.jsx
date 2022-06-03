@@ -9,7 +9,7 @@ import { useUser } from '../contexts/UserContext';
 import { useAuth } from '../contexts/AuthContext';
 
 /**
- * React function component. Renders chat component.
+ * React functional component. Renders chat component.
  *
  * @param {object} props - Props object for component.
  * @param {object} props.chat - the chat object.

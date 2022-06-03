@@ -16,7 +16,7 @@ import Disciplines from './Disciplines';
 
 import { useUser } from '../contexts/UserContext';
 /**
- * React function component. Renders partner ad created by other user.
+ * React functional component. Renders partner ad created by other user.
  *
  * @param {object} props - Props object for component.
  * @param {string} props.id - Ad id.

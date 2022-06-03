@@ -5,7 +5,7 @@ import { useUser } from '../contexts/UserContext';
 import Loading from './Loading';
 
 /**
- * React function component. Parent for pages/components only accessible for authorized user. If user is not logged in she is redirected to the login page.
+ * React functional component. Parent for pages/components only accessible for authorized user. If user is not logged in she is redirected to the login page.
  * Renders Loading spinner while waiting for userData to arrive form API.
  *
  * @param {object} props - Props object for component.

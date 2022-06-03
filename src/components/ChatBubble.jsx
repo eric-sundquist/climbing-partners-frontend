@@ -17,7 +17,7 @@ const otherMessageStyle = {
 };
 
 /**
- * React function component. Renders a chat bubble.
+ * React functional component. Renders a chat bubble.
  *
  * @param {object} props - Props object for component.
  * @param {string} props.text - Text to display.

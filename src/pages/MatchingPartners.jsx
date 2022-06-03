@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ReactElement } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import format from 'date-fns/format';
@@ -9,12 +9,20 @@ import PartnerAd from '../components/PartnerAd';
 import Loading from '../components/Loading';
 import { useUser } from '../contexts/UserContext';
 
+/**
+ * React functional component. Renders page with partners matching an ad.
+ *
+ * @returns {ReactElement} - the page component.
+ */
 function MatchingPartners() {
   const { date, location, adId } = useLocation().state;
   const { searchMatchingPartners } = useUser();
   const [matched, setMatched] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  /**
+   * Fetches matching partners.
+   */
   const getMatches = async () => {
     setMatched(await searchMatchingPartners(date, location));
     setIsLoading(false);

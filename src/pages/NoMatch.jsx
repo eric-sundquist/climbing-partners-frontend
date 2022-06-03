@@ -1,8 +1,14 @@
+import { ReactElement } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
+/**
+ * React functional component. Renders 404 page.
+ *
+ * @returns {ReactElement} - the 404 page component.
+ */
 function NoMatch() {
   return (
     <Container

@@ -16,7 +16,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import ExpandMore from './ExpandMore';
 
 /**
- * React function component. Renders user profile.
+ * React functional component. Renders user profile.
  *
  * @param {object} props - Props object for component.
  * @param {string} props.date - date of the climbing session.

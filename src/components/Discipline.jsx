@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 /**
- * React function component. Renders a discipline card.
+ * React functional component. Renders a discipline card.
  *
  * @param {object} props - Props object for component.
  * @param {number} props.index - index of discipline in disciplines array.

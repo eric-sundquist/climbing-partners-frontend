@@ -1,3 +1,4 @@
+import { ReactElement } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
@@ -6,6 +7,11 @@ import Sessions from '../components/Sessions';
 import PartnerAds from '../components/PartnerAds';
 import { useUser } from '../contexts/UserContext';
 
+/**
+ * React functional component. Renders the dashboard page.
+ *
+ * @returns {ReactElement} - dashboard component.
+ */
 function Dashboard() {
   const { userData } = useUser();
   return (

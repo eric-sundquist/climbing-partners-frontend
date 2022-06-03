@@ -8,7 +8,7 @@ import { useUser } from '../contexts/UserContext';
 import Disciplines from './Disciplines';
 
 /**
- * React function component. Renders form for editing profile content.
+ * React functional component. Renders form for editing profile content.
  *
  * @param {object} props - Props object for component.
  * @param {boolean} props.isEditing - is the profile in edit mode.

@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 import Discipline from './Discipline';
 
 /**
- * React function component. Renders a set of Disciplines and form module for adding new discipline.
+ * React functional component. Renders a set of Disciplines and form module for adding new discipline.
  *
  * @param {object} props - Props object for component.
  * @param {boolean} props.isEditing - is the card editable.

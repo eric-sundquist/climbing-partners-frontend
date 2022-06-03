@@ -7,7 +7,7 @@ import OwnerPartnerAd from './OwnerPartnerAd';
 import { useUser } from '../contexts/UserContext';
 
 /**
- * React function component. Renders container for displaying current users partner ads.
+ * React functional component. Renders container for displaying current users partner ads.
  *
  * @returns {ReactElement} - PartnerAds component.
  */

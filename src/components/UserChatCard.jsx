@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
 /**
- * React function component. Renders chat component.
+ * React functional component. Renders chat component.
  *
  * @param {object} props - Props object for component.
  * @param {object} props.chat - the chat object.
