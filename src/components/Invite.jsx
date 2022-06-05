@@ -74,7 +74,7 @@ function Invite({ id, date, location, description, name, profile }) {
               aria-label="avatar"
               component={RouterLink}
               to="/view-profile"
-              state={{ profile: profile }}
+              state={{ user: { user: profile } }}
             >
               <Avatar />
             </IconButton>
