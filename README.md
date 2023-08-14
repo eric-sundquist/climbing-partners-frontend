@@ -1,9 +1,11 @@
 # Climbing Partners
-> This project has been imported from my unis private gitlab.
-> I completed this project 2022 as i was finishing my first year. It is not up to date and may not be in a working state as is in this repository.
+> Migrated from Gitlab where my school projects where hosted
+> I completed this project 2022 as I was finishing my first year in uni.
+> During migration a lot of the documentation was lost.. 
 
-Välkommen till mitt Climbing Partners App projekt. Mer utförlig presentation av projektet finner du i Wikin
+Repo for "Climbing partners" app front end. React with MaterialUI
 
-### Kodbas
+The application was created during a project course during my first year in uni. It involved choosing a suitable project, defining requirments and adapting a agile development process. 
 
-Applikationens kodbas är uppdelat i två Gitlab-projekt, ett för [Klient](https://gitlab.lnu.se/1dv613/student/es225kz/projects/klient-climbing-partners) och ett för [Backend](https://gitlab.lnu.se/1dv613/student/es225kz/projects/backend-climbing-partners). 
+More information can be found in the [Wiki](https://github.com/eric-sundquist/climbing-partners-frontend/wiki). However the menu and many of the links broke when migrating from gitlab. 
+
