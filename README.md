@@ -1,11 +1,16 @@
 # Climbing Partners
+
 > Migrated from Gitlab where my school projects where hosted
-> I completed this project 2022 as I was finishing my first year in uni.
-> During migration a lot of the documentation was lost.. 
+> During migration a lot of the documentation was lost..
 
-Repo for "Climbing partners" app front end. React with MaterialUI
+### About project
 
-The application was created during a project course during my first year in uni. It involved choosing a suitable project, defining requirments and adapting a agile development process. 
+I completed this during a project course in the end of my first year of uni 2022. In the course we where given the freedom to develop a new application with a tech-stack of choice, from idea to finished project. It should be developed in an agile manner and I had sprint meetings each week together with a supervisor.
 
-More information can be found in the [Wiki](https://github.com/eric-sundquist/climbing-partners-frontend/wiki). However the menu and many of the links broke when migrating from gitlab. 
+### About application
 
+### Front end repo
+
+The front end of the application is contained in this repo. It was developed in React and using MaterialUI styled components.
+
+### Architechture
