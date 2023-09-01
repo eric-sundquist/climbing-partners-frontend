@@ -22,7 +22,7 @@ The "Climbing Partners" application is made to help climbers more efficiently fi
 
 **Deploy:** FE on Netlify, BE on Heroku, DB on MongoDB Atlas.
 
-### Architechture
+### Architecture
 
 ![Architechture](/img/arkitektur.png)
 
